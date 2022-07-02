@@ -1,30 +1,31 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <MyTest></MyTest>
+  <Header></Header>
+  <router-view></router-view>
+  <!-- 使用v-show无效且报警 -->
+  <!-- <Footer v-show="Route.meta.showFooter"></Footer> -->
+  <Footer v-if="Route.meta.showFooter"></Footer>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { defineComponent } from "vue";
+import MyTest from "@/components/test.vue";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { useRoute, useRouter } from "vue-router";
+export default defineComponent({
+  name: "App",
+  components: { Header, Footer, MyTest },
+  props: {},
+  setup(props, ctx) {
+    const Route = useRoute();
+    const Router = useRouter();
+    return {
+      Route,
+    };
+  },
+});
+</script>
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style scoped>
 </style>
