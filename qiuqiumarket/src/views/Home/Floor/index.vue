@@ -3,7 +3,7 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">家用电器</h3>
+        <h3 class="fl">{{ floor.name }}</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix">
             <li class="active">
@@ -35,55 +35,50 @@
           <div class="floor-1">
             <div class="blockgary">
               <ul class="jd-list">
-                <li>节能补贴</li>
-                <li>4K电视</li>
-                <li>空气净化器</li>
-                <li>IH电饭煲</li>
-                <li>滚筒洗衣机</li>
-                <li>电热水器</li>
+                <li
+                  v-for="(keyword, index) in floor.keywords"
+                  :key="index + keyword"
+                >
+                  {{ keyword }}
+                </li>
               </ul>
-              <img src="./images/floor-1-1.png" />
+              <img :src="floor.imgUrl" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b01.png" />
-                  </div>
-                  <!-- <div class="swiper-slide">
-                    <img src="./images/floor-1-b02.png" />
-                  </div>
-                  <div class="swiper-slide">
-                    <img src="./images/floor-1-b03.png" />
-                  </div> -->
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
+              <swiper
+                :modules="modules"
+                :slides-per-view="1"
+                :space-between="50"
+                navigation
+                :pagination="{ clickable: true }"
+                :autoplay="{
+                  delay: 2000,
+                  disableOnInteraction: false,
+                }"
+                :loop="true"
+              >
+                <swiper-slide v-for="carousel in floor.carouselList" :key="carousel.id"><img :src="carousel.imgUrl" /></swiper-slide>
+              </swiper>
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-2.png" />
+                <img :src="floor.recommendList[0]" />
               </div>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-3.png" />
+                <img :src="floor.recommendList[1]" />
               </div>
             </div>
             <div class="split center">
-              <img src="./images/floor-1-4.png" />
+              <img :src="floor.bigImg" />
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-5.png" />
+                <img :src="floor.recommendList[2]" />
               </div>
               <div class="floor-conver-pit">
-                <img src="./images/floor-1-6.png" />
+                <img :src="floor.recommendList[3]" />
               </div>
             </div>
           </div>
@@ -93,14 +88,31 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import { floor } from "@/types/types";
+
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 export default defineComponent({
-  name: "",
-  components: {},
-  props: {},
+  name: "Floor",
+  components: { Swiper, SwiperSlide },
+  props: {
+    floor: {
+      type: Object as PropType<floor>,
+      required: true,
+    },
+  },
   setup(props, ctx) {
-    return {};
+    return {
+      modules: [Navigation, Pagination, Scrollbar, A11y, Autoplay],
+    };
   },
 });
 </script>

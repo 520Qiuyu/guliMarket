@@ -32,12 +32,13 @@
         </a>
       </h1>
       <div class="searchArea">
-        <form action="###" class="searchForm">
+        <form action="###" class="searchForm" @submit.native.prevent>
           <input
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
             v-model="keyword"
+            @keydown.enter="goSearch"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -70,15 +71,10 @@ export default defineComponent({
       if (keyword.value) {
         Router.push({
           name: "search",
-          query: {
-            keyword: keyword.value,
-            
-          },
           params: {
             keyword: keyword.value,
-            didi:"qiuqiu"
-            // keyword: "",
           },
+          query:Route.query
         });
         keyword.value = "";
       } else {

@@ -4,28 +4,19 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
-            </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <Swiper
+          :modules="modules"
+          :slides-per-view="1"
+          :space-between="50"
+          navigation
+          :autoplay="{ delay: 2000, disableOnInteraction: false }"
+          :pagination="{ clickable: true }"
+          :loop="true"
+        >
+          <swiper-slide v-for="banner in bannerList" :key="banner.id"
+            ><img :src="banner.imgUrl"
+          /></swiper-slide>
+        </Swiper>
       </div>
       <div class="right">
         <div class="news">
@@ -100,15 +91,33 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { computed, defineComponent } from "vue";
+import { banner } from "@/types/types";
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import { useStore } from "vuex";
+
 export default defineComponent({
   name: "ListContainer",
-  components: {},
+  components: { Swiper, SwiperSlide },
   props: {},
   setup(props, ctx) {
-    return {};
+    const Store = useStore();
+    const bannerList = computed<banner[]>(() => Store.state.home.bannerList);
+    return {
+      bannerList,
+      modules: [Navigation, Pagination, Scrollbar, A11y, Autoplay],
+    };
   },
+  created() {},
 });
 </script>
 

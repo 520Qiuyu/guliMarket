@@ -8,6 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/Home/index.vue"),
     meta: {
       showFooter: true,
+      showSort:true,
     },
   },
   // Search页面
@@ -17,6 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/Search/index.vue"),
     meta: {
       showFooter: true,
+      showSort:false
     },
   },
   // 登录页面

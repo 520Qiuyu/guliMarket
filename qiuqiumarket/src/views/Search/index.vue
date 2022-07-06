@@ -1,28 +1,104 @@
 <template>
-  <div>
-    我是search组件
-    <h1>收到的query参数keyword:{{Route.query.keyword}}</h1>
-    <h1>收到的params参数keyword:{{Route.params.keyword}}</h1>
-    <h1>收到的params参数didi:{{Route.params.didi}}</h1>
+  <TypeNav></TypeNav>
+  <!--list-content-->
+  <div class="main">
+    <div class="py-container">
+      <Bread :searchParams="searchParams"></Bread>
+      <!--selector-->
+      <Selector></Selector>
+      <!--details-->
+      <Details></Details>
+      <!--hotsale-->
+      <HotSale></HotSale>
+    </div>
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-export default defineComponent ({
-  name:'Search',
-  components:{},
-  props:{},
-  setup(props, ctx){
+<script lang="ts">
+import {
+  computed,
+  defineComponent,
+  reactive,
+  ref,
+  watch,
+  watchEffect,
+} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import TypeNav from "../../components/TypeNav/index.vue";
+import { searchParams, searchResult } from "@/types/types";
+import Bread from "./Bread/index.vue";
+import Selector from "./Selector/index.vue";
+import Details from "./Details/index.vue";
+import HotSale from "./HotSale/index.vue";
+import { useStore } from "vuex";
+export default defineComponent({
+  name: "Search",
+  components: { TypeNav, Bread, Selector, Details, HotSale },
+  props: {},
+  setup(props, ctx) {
     const Route = useRoute();
-    const Router = useRouter();
+    const Store = useStore();
+
+    const searchParams = reactive({
+      category1Id: undefined,
+      category2Id: undefined,
+      category3Id: undefined,
+      categoryName: "", //产品的名字
+      keyword: "", //关键字
+      props: [], //平台属性的选择参数
+      trademark: "", //品牌参数
+      //上面这七个参数：有用户选择决定的，因此初始值为空的
+      //下面这三个：都有初始值
+      order: "1:desc", //携带给服务器参数order--->初始值"1:desc"[综合降序]
+      pageNo: 1,
+      // pageNo:parseInt(localStorage.getItem('pageNo'))||1, //获取第几页的数据，默认即为第一个的数据
+      pageSize: 10, //每一页需要展示多少条数据
+    } as searchParams);
+    const setSearchParams = (newParams: searchParams) => {
+      Object.assign(searchParams, newParams);
+    };
+    // 监视路由，当有路由传参时，会引起路由的变化，然后改变searchParams参数
+    watch(
+      Route,
+      () => {
+        searchParams.keyword = Route.params.keyword as string;
+        // 置空Id，防止上次的数据影响下次搜索
+        searchParams.category1Id = undefined;
+        searchParams.category2Id = undefined;
+        searchParams.category3Id = undefined;
+        Object.assign(searchParams, Route.query);
+        console.log("路有变化了", searchParams);
+      },
+      { immediate: true }
+    );
+    // 监视searchParams，一旦变化，就要去更新搜索结果
+    watch(searchParams, (newVal) => {
+      console.log("searchParams我变化了");
+      Store.dispatch("search/getSearchResult", newVal);
+    });
+    const searchResult = computed<searchResult>(
+      () => Store.state.search.searchResult
+    );
     return {
-      Route
-    }
+      Route,
+      Store,
+      searchResult,
+      searchParams,
+      setSearchParams,
+    };
   },
-})
+  created() {
+    this.Store.dispatch("search/getSearchResult", this.searchParams);
+  },
+});
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.main {
+  margin: 10px 0;
+  .py-container {
+    width: 1200px;
+    margin: 0 auto;
+  }
+}
 </style>

@@ -59,7 +59,7 @@
 <script>
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "",
+  name: "Like",
   components: {},
   props: {},
   setup(props, ctx) {

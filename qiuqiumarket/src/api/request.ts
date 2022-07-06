@@ -4,7 +4,7 @@ import"nprogress/nprogress.css"
 //创建axios实例[创建出来的实例即为axios，只不过可以配置一些东西]
 const request = axios.create({
   //设置请求时间（5S）
-  timeout: 5000,
+  // timeout: 5000,
 });
 
 //请求拦截器:在发请求之前可以检测到，可以干一些事情

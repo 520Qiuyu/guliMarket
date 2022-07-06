@@ -12,7 +12,9 @@ import { defineComponent } from "vue";
 import MyTest from "@/components/test.vue";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { delCateGory2 } from "@/api/index.ts";
 import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 export default defineComponent({
   name: "App",
   components: { Header, Footer, MyTest },
@@ -20,9 +22,23 @@ export default defineComponent({
   setup(props, ctx) {
     const Route = useRoute();
     const Router = useRouter();
+    const Store = useStore();
+
     return {
       Route,
+      Router,
+      Store,
     };
+  },
+  created() {
+    // 复合三级及联
+    // this.$store.dispatch("loadCategoryList");
+    // 三级及联
+    this.Store.dispatch("home/getBaseCategoryList");
+    // 获取首页轮播图列表
+    this.$store.dispatch("home/getBannerList");
+    //
+    this.$store.dispatch("home/getFloorList");
   },
 });
 </script>

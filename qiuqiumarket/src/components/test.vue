@@ -4,22 +4,21 @@
 
 <script>
 import { defineComponent } from "vue";
-import { getCateGory1, getCateGory2,getCateGory3 } from "../api";
+import { getCateGory1, getCateGory2,getCateGory3,getBannerList } from "../api";
 export default defineComponent({
   name: "MyTest",
   components: {},
   props: {},
   setup(props, ctx) {
-    const getCateGory = async () => {
-      const res = await getCateGory3(2);
-      console.log("res", res);
+    const getBannerList_ = async () => {
+      const res = await getBannerList(2);
     };
     return {
-      getCateGory,
+      getBannerList_,
     };
   },
   created() {
-    this.getCateGory();
+    this.getBannerList_();
   },
 });
 </script>
