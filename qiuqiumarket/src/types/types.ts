@@ -40,7 +40,7 @@ export interface searchParams {
   category3Id?: number;
   categoryName?: string;
   keyword?: string;
-  props?: [];
+  props?: string[];
   trademark?: string;
   order?: string;
   pageNo?: number;
@@ -80,4 +80,94 @@ export interface searchResult {
   total: number;
   totalPages: number;
   trademarkList: trademark[];
+}
+export interface categoryView {
+  category1Id: number;
+  category1Name: string;
+  category2Id: number;
+  category2Name: string;
+  category3Id: number;
+  category3Name: string;
+  id: number;
+}
+export interface skuAttrValue {
+  attrId: number;
+  attrName: string;
+  id: number;
+  skuId: number;
+  valueId: number;
+  valueName: string;
+}
+export interface skuImage {
+  id: number;
+  imgName: string;
+  imgUrl: string;
+  isDefault: string;
+  skuId: number;
+  spuImgId: number;
+}
+export interface skuSaleAttrValue {
+  id: number;
+  saleAttrId: number;
+  saleAttrName: string;
+  saleAttrValueId: number;
+  saleAttrValueName: string;
+  skuId: number;
+  spuId: number;
+}
+export interface skuInfo {
+  category3Id: number;
+  createTime: string;
+  id: number;
+  isSale: number;
+  price: number;
+  skuAttrValueList: skuAttrValue[];
+  skuDefaultImg: string;
+  skuDesc: string;
+  skuImageList: skuImage[];
+  skuName: string;
+  skuSaleAttrValueList: skuAttrValue[];
+  spuId: number;
+  tmId: number;
+  weight: string;
+}
+export interface spuSaleAttrValue {
+  baseSaleAttrId: number;
+  id: number;
+  isChecked: "0" | "1";
+  saleAttrName: string;
+  saleAttrValueName: string;
+  spuId: number;
+}
+export interface spuSaleAttr {
+  baseSaleAttrId: number;
+  id: number;
+  saleAttrName: string;
+  spuId: number;
+  spuSaleAttrValueList: spuSaleAttrValue[];
+}
+export interface skuDetail {
+  categoryView: categoryView;
+  price: number;
+  skuInfo: skuInfo;
+  spuSaleAttrList: spuSaleAttr[];
+  valuesSkuJson: string;
+}
+export interface cartInfo {
+  cartPrice: number;
+  couponInfoList?: [];
+  createTime: string;
+  id: number;
+  imgUrl: string;
+  isChecked: 1 | 0;
+  isOrdered: number;
+  operateTime: string;
+  orderTime?: string;
+  skuId: number;
+  skuName: string;
+  skuNum: number;
+  skuPrice: number;
+  sourceId: number;
+  sourceType: string;
+  userId: string;
 }

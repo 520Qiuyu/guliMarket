@@ -148,9 +148,6 @@ export default defineComponent({
             color: #c81623;
             strong {
               font-weight: 700;
-              i {
-                margin-left: -5px;
-              }
             }
           }
           .commit {

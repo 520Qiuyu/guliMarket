@@ -1,6 +1,7 @@
 import axios from "axios";
+import store from "@/store";
 import nprogress from "nprogress";
-import"nprogress/nprogress.css"
+import "nprogress/nprogress.css";
 //创建axios实例[创建出来的实例即为axios，只不过可以配置一些东西]
 const request = axios.create({
   //设置请求时间（5S）
@@ -9,14 +10,17 @@ const request = axios.create({
 
 //请求拦截器:在发请求之前可以检测到，可以干一些事情
 request.interceptors.request.use((config) => {
-    nprogress.start()
-    return config
+  nprogress.start();
+  if((store.state as { goods: any }).goods.uuid_token){
+    config.headers!.userTempId = (store.state as { goods: any }).goods.uuid_token as string
+  }
+  return config;
 });
 
 //响应拦截器：服务器的数据已经返回了，可以干一些事情
 request.interceptors.response.use(
   (res) => {
-    nprogress.done()
+    nprogress.done();
     return res;
   },
   (error) => {

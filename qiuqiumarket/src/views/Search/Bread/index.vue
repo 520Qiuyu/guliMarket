@@ -7,12 +7,25 @@
       </li>
     </ul>
     <ul class="fl sui-tag">
+      <!-- 关键词 搜索框 params -->
       <li class="with-x" v-show="keyword">
         {{ keyword }}
         <i @click="deleteKeyword">×</i>
       </li>
+      <!-- 分类名 导航栏 query -->
       <li class="with-x" v-show="categoryName">
-        {{ categoryName }}<i @click="deleteCategory">×</i>
+        {{ categoryName }}
+        <i @click="deleteCategory">×</i>
+      </li>
+      <!-- 品牌名 品牌选择 trademark -->
+      <li class="with-x" v-show="searchParams.trademark">
+        {{ searchParams.trademark?.split(":")[1] }}
+        <i @click="deleteTrademark">×</i>
+      </li>
+      <!-- Props属性 属性选择 props -->
+      <li class="with-x" v-for="prop in searchParams.props">
+        {{ prop.split(":")[1] }}
+        <i @click="deleteProp(prop)">×</i>
       </li>
     </ul>
   </div>
@@ -32,6 +45,7 @@ export default defineComponent({
       default: {},
     },
   },
+  emits: ["setSearchParams"],
   setup(props, ctx) {
     const Route = useRoute();
     const Router = useRouter();
@@ -39,21 +53,25 @@ export default defineComponent({
     const keyword = computed(() => Route.params.keyword);
     const categoryName = computed(() => Route.query.categoryName);
     const deleteKeyword = () => {
-      Route.params.keyword = "";
       Router.push({
         name: "search",
         query: Route.query,
       });
     };
     const deleteCategory = () => {
-      for (const key in Route.query) {
-        Reflect.deleteProperty(Route.query, key);
-      }
-      console.log('Route.query',Route)
       Router.push({
         name: "search",
         params: Route.params,
       });
+    };
+    const deleteTrademark = () => {
+      ctx.emit("setSearchParams", { trademark: undefined });
+    };
+    const deleteProp = (prop: string) => {
+      let searchParamsProps = props.searchParams.props?.filter((item) => {
+        return item !== prop;
+      });
+      ctx.emit("setSearchParams", { props: searchParamsProps });
     };
     return {
       Route,
@@ -61,6 +79,8 @@ export default defineComponent({
       categoryName,
       deleteKeyword,
       deleteCategory,
+      deleteTrademark,
+      deleteProp,
     };
   },
 });

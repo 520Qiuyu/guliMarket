@@ -4,8 +4,12 @@
     <div class="type-wrap logo">
       <div class="fl key brand">品牌</div>
       <div class="value logos">
-        <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">
+        <ul class="logo-list" @click="selectTradeMark($event)">
+          <li
+            v-for="trademark in trademarkList"
+            :key="trademark.tmId"
+            :tmId="trademark.tmId"
+          >
             {{ trademark.tmName }}
           </li>
         </ul>
@@ -16,36 +20,61 @@
       </div>
     </div>
     <div class="type-wrap" v-for="attr in attrsList" :key="attr.attrId">
-      <div class="fl key">{{attr.attrName}}</div>
+      <div class="fl key">{{ attr.attrName }}</div>
       <div class="fl value">
-        <ul class="type-list">
+        <ul class="type-list" @click="selectProps($event)">
           <li v-for="(attrValue, index) in attr.attrValueList" :key="index">
-            <a>{{attrValue}}</a>
+            <a :props="`${attr.attrId}:${attrValue}:${attr.attrName}`">{{
+              attrValue
+            }}</a>
           </li>
         </ul>
       </div>
       <div class="fl ext"></div>
     </div>
-
   </div>
 </template>
 
-<script>
-import { computed, defineComponent } from "vue";
+<script lang="ts">
+import { searchParams } from "@/types/types";
+import { computed, defineComponent, PropType } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
   name: "Selector",
   components: {},
-  props: {},
+  emits: ["setSearchParams"],
+  props: {
+    searchParams: {
+      type: Object as PropType<searchParams>,
+      default: {},
+    },
+  },
   setup(props, ctx) {
     const Store = useStore();
     const trademarkList = computed(
       () => Store.state.search.searchResult.trademarkList
     );
+    const selectTradeMark = (event: MouseEvent) => {
+      const target = event.target as HTMLLIElement;
+      const tmId = target.getAttribute("tmId");
+      const tmName = target.innerText;
+      ctx.emit("setSearchParams", { trademark: `${tmId}:${tmName}` });
+    };
+    const selectProps = (event: MouseEvent) => {
+      const target = event.target as HTMLLIElement;
+      // 获取原有的属性
+      let searchParamsProps = props.searchParams.props;
+      // 在原有属性上添加本次选中的属性
+      searchParamsProps?.push(target.getAttribute("props") as string);
+      searchParamsProps = [...new Set(searchParamsProps)];
+      ctx.emit("setSearchParams", { props: searchParamsProps });
+    };
     const attrsList = computed(() => Store.state.search.searchResult.attrsList);
     return {
       trademarkList,
+      selectTradeMark,
       attrsList,
+      selectProps,
     };
   },
 });
@@ -100,6 +129,7 @@ export default defineComponent({
           color: #e1251b;
           font-style: italic;
           font-size: 14px;
+          cursor: pointer;
           img {
             max-width: 100%;
             vertical-align: middle;
@@ -115,6 +145,7 @@ export default defineComponent({
           a {
             text-decoration: none;
             color: #666;
+            cursor: pointer;
           }
         }
       }

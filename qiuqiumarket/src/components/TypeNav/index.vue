@@ -77,8 +77,6 @@ import { useRoute, useRouter } from "vue-router";
 import "animate.css";
 export default defineComponent({
   name: "TypeNav",
-  components: {},
-  props: {},
   setup(props, ctx) {
     const Router = useRouter();
     const Route = useRoute();

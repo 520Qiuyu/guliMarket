@@ -65,3 +65,33 @@ export const getSearchResult = (params: searchParams) =>
     url: "/api/list",
     data: params,
   });
+// 获取商品详情
+export const getSkuDetail = (skuId: number) =>
+  request({
+    method: "get",
+    url: `/api/item/${skuId}`,
+  });
+// 切换商品选中状态
+export const changeSkuChecked = (skuId: number, isChecked: "0" | "1") =>
+  request({
+    method: "get",
+    url: `/api/cart/checkCart/${skuId}/${isChecked}`,
+  });
+// 添加购物车
+export const addToCart = (skuId: number, skuNum: number) =>
+  request({
+    method: "post",
+    url: `/api/cart/addToCart/${skuId}/${skuNum}`,
+  });
+// 获取购物车列表
+export const getShopCartList = () =>
+  request({
+    method: "get",
+    url: "/api/cart/cartList",
+  });
+// 删除购物车中已添加的商品
+export const delCart = (skuId: number) =>
+  request({
+    method: "DELETE",
+    url: `/api/cart/deleteCart/${skuId}`,
+  });

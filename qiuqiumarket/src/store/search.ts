@@ -5,12 +5,9 @@ export default {
   actions: {
     async getSearchResult(context: any, value: searchParams) {
       const res = await getSearchResult(value);
-      console.log("res.data", res.data);
+      console.log("getSearchResult", res.data);
       if (res.data.code === 200)
         context.commit("GETSEARCHRESULT", res.data.data);
-    },
-    delTrademark(context: any, value: searchParams) {
-      console.log(" ", "我开始删除trademark了");
     },
   },
   mutations: {

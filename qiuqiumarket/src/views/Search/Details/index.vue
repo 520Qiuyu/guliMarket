@@ -3,34 +3,44 @@
   <div class="details clearfix">
     <div class="sui-navbar">
       <div class="navbar-inner filter">
-        <ul class="sui-nav">
-          <li class="active">
-            <a>综合</a>
+        <ul class="sui-nav" @click="changeOrder($event)">
+          <li>
+            <a
+              :class="currentOrder === '1:asc' ? 'active' : ''"
+              :order="`1:asc`"
+              >综合⬆</a
+            >
           </li>
           <li>
-            <a>销量</a>
+            <a
+              :class="currentOrder === '1:desc' ? 'active' : ''"
+              :order="`1:desc`"
+              >综合⬇</a
+            >
           </li>
           <li>
-            <a>新品</a>
+            <a
+              :class="currentOrder === '2:asc' ? 'active' : ''"
+              :order="`2:asc`"
+              >价格⬆</a
+            >
           </li>
           <li>
-            <a>评价</a>
-          </li>
-          <li>
-            <a>价格⬆</a>
-          </li>
-          <li>
-            <a>价格⬇</a>
+            <a
+              :class="currentOrder === '2:desc' ? 'active' : ''"
+              :order="`2:desc`"
+              >价格⬇</a
+            >
           </li>
         </ul>
       </div>
     </div>
     <div class="goods-list">
       <ul class="yui3-g">
-        <li class="yui3-u-1-5" v-for="goods in goodsList">
+        <li class="yui3-u-1-5" v-for="goods in goodsList" @click="goDetail(goods.id)">
           <div class="list-wrap">
             <div class="p-img">
-              <a href="item.html" target="_blank"
+              <a 
                 ><img :src="goods.defaultImg"
               /></a>
             </div>
@@ -42,23 +52,21 @@
             </div>
             <div class="attr">
               <a
-                target="_blank"
                 href="item.html"
                 title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                >{{ goods.title }}</a
-              >
+                v-html="goods.title"
+              ></a>
             </div>
             <div class="commit">
               <i class="command">已有<span>2000</span>人评价</i>
             </div>
             <div class="operate">
               <a
-                href="success-cart.html"
                 target="_blank"
                 class="sui-btn btn-bordered btn-danger"
                 >加入购物车</a
               >
-              <a href="javascript:void(0);" class="sui-btn btn-bordered"
+              <a class="sui-btn btn-bordered"
                 >收藏</a
               >
             </div>
@@ -66,47 +74,99 @@
         </li>
       </ul>
     </div>
-    <div class="fr page">
-      <div class="sui-pagination clearfix">
-        <ul>
-          <li class="prev disabled">
-            <a>«上一页</a>
-          </li>
-          <li v-for="(pageNum, index) in totalPage" :key="index" :class="index+1===pageNo?'active':''" v-show="index+1 <= 5">
-            <a>{{pageNum}}</a>
-          </li>
-          
-          <li class="dotted" v-if="totalPage>5"><span>...</span></li>
-          <li class="next">
-            <a>下一页»</a>
-          </li>
-        </ul>
-        <div><span>共{{totalPage}}页&nbsp;</span></div>
-      </div>
-    </div>
+    <Pagination
+      v-if="totalPages"
+      :currentPage="(currentPage as number)"
+      :totalPages="totalPages"
+      :pageShowNum="5"
+      @toPrevPage="toPrevPage"
+      @toNextPage="toNextPage"
+      @toThisPage="toThisPage"
+    ></Pagination>
   </div>
 </template>
 
-<script>
-import { computed, defineComponent } from "vue";
+<script lang="ts">
+import Pagination from "../../../components/Pagination/index.vue";
+import { searchParams } from "@/types/types";
+import { computed, defineComponent, PropType, ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default defineComponent({
   name: "Details",
-  components: {},
-  props: {},
+  components: { Pagination },
+  emits: ["setSearchParams"],
+  props: {
+    searchParams: {
+      type: Object as PropType<searchParams>,
+      default: {},
+    },
+  },
   setup(props, ctx) {
     const Store = useStore();
-    console.log("Store.getters", Store.getters);
+    const Router = useRouter();
+    // 商品列表
     const goodsList = computed(() => Store.getters["search/goodsList"]);
-    const totalPage = computed(() => Store.getters["search/totalPages"]);
+    // 总页数
+    const totalPages = computed<number>(
+      () => Store.getters["search/totalPages"]
+    );
+    // 商品总数
     const total = computed(() => Store.getters["search/total"]);
-    const pageNo = computed(() => Store.getters["search/pageNo"]);
-
+    // 当前排序方式
+    const currentOrder = ref("1:desc");
+    // 改变排序方式
+    const changeOrder = (event: PointerEvent) => {
+      const target = event.target as HTMLAnchorElement;
+      ctx.emit("setSearchParams", { order: target.getAttribute("order") });
+      currentOrder.value = target.getAttribute("order") as string;
+    };
+    // 当前所在页数
+    const currentPage = computed(() => props.searchParams.pageNo);
+    // 上一页
+    const toPrevPage = () => {
+      if (currentPage.value === 1 || totalPages.value === 0)
+        return alert("买油上一页啦！");
+      else
+        ctx.emit("setSearchParams", {
+          pageNo: (currentPage.value as number) - 1,
+        });
+    };
+    // 下一页
+    const toNextPage = () => {
+      if ((currentPage.value as number) >= (totalPages.value as number))
+        return alert("买油下一页啦！");
+      else
+        ctx.emit("setSearchParams", {
+          pageNo: (currentPage.value as number) + 1,
+        });
+    };
+    // 跳转到指定页
+    const toThisPage = (index: number) => {
+      ctx.emit("setSearchParams", {
+        pageNo: index,
+      });
+    };
+    // 跳转到详情页
+    const goDetail = (skuId:number)=>{
+      Router.push({
+        name:"detail",
+        params:{
+          skuId
+        }
+      })
+    }
     return {
       goodsList,
-      totalPage,
+      totalPages,
       total,
-      pageNo,
+      currentOrder,
+      changeOrder,
+      currentPage,
+      toPrevPage,
+      toNextPage,
+      toThisPage,
+      goDetail,
     };
   },
 });
@@ -118,6 +178,7 @@ export default defineComponent({
   .sui-navbar {
     overflow: visible;
     margin-bottom: 0;
+
     .filter {
       min-height: 40px;
       padding-right: 20px;
@@ -142,11 +203,9 @@ export default defineComponent({
             color: #777;
             text-decoration: none;
           }
-          &.active {
-            a {
-              background: #e1251b;
-              color: #fff;
-            }
+          .active {
+            background: #e1251b;
+            color: #fff;
           }
         }
       }

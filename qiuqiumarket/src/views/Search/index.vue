@@ -3,11 +3,20 @@
   <!--list-content-->
   <div class="main">
     <div class="py-container">
-      <Bread :searchParams="searchParams"></Bread>
+      <Bread
+        :searchParams="searchParams"
+        @setSearchParams="setSearchParams"
+      ></Bread>
       <!--selector-->
-      <Selector></Selector>
+      <Selector
+        :searchParams="searchParams"
+        @setSearchParams="setSearchParams"
+      ></Selector>
       <!--details-->
-      <Details></Details>
+      <Details
+        :searchParams="searchParams"
+        @setSearchParams="setSearchParams"
+      ></Details>
       <!--hotsale-->
       <HotSale></HotSale>
     </div>
@@ -43,18 +52,23 @@ export default defineComponent({
       category1Id: undefined,
       category2Id: undefined,
       category3Id: undefined,
-      categoryName: "", //产品的名字
-      keyword: "", //关键字
+      categoryName: undefined, //产品的名字
+      keyword: undefined, //关键字
       props: [], //平台属性的选择参数
-      trademark: "", //品牌参数
+      trademark: undefined, //品牌参数
       //上面这七个参数：有用户选择决定的，因此初始值为空的
       //下面这三个：都有初始值
       order: "1:desc", //携带给服务器参数order--->初始值"1:desc"[综合降序]
       pageNo: 1,
       // pageNo:parseInt(localStorage.getItem('pageNo'))||1, //获取第几页的数据，默认即为第一个的数据
-      pageSize: 10, //每一页需要展示多少条数据
+      pageSize: 3, //每一页需要展示多少条数据
     } as searchParams);
     const setSearchParams = (newParams: searchParams) => {
+      console.log("我出发了修改搜索参数： ", newParams);
+      // 如果不是修改pageNo，那么必定会引起结果的改变，必须将要显示的页面置零
+      if (!("pageNo" in newParams)) {
+        Object.assign(newParams, { pageNo: 1 });
+      }
       Object.assign(searchParams, newParams);
     };
     // 监视路由，当有路由传参时，会引起路由的变化，然后改变searchParams参数
@@ -63,17 +77,19 @@ export default defineComponent({
       () => {
         searchParams.keyword = Route.params.keyword as string;
         // 置空Id，防止上次的数据影响下次搜索
+        // 将相关参数设置为undefined，发送请求时，undefined的数据不会被发送
         searchParams.category1Id = undefined;
         searchParams.category2Id = undefined;
         searchParams.category3Id = undefined;
-        Object.assign(searchParams, Route.query);
-        console.log("路有变化了", searchParams);
+        searchParams.categoryName = undefined;
+        Object.assign(searchParams, Route.query, { pageNo: 1 });
+        console.log("路由：我变化了", searchParams);
       },
       { immediate: true }
     );
     // 监视searchParams，一旦变化，就要去更新搜索结果
     watch(searchParams, (newVal) => {
-      console.log("searchParams我变化了");
+      console.log("searchParams：我变化了", searchParams);
       Store.dispatch("search/getSearchResult", newVal);
     });
     const searchResult = computed<searchResult>(
