@@ -37,11 +37,11 @@ export default defineComponent({
   props: {
     totalPages: {
       type: Number,
-      required: true,
+      default: 0,
     },
     currentPage: {
       type: Number,
-      required: true,
+      default: 1,
     },
     pageShowNum: {
       type: Number,
@@ -56,7 +56,6 @@ export default defineComponent({
     const pageShowNum = toRef(props, "pageShowNum");
     const showList = ref<boolean[]>([]);
     watch(currentPage, () => {
-      console.log("totalPages", totalPages.value);
       const array = [] as boolean[];
       for (let i = 1; i <= totalPages.value; i++) {
         array.push(isShow(i));
@@ -109,9 +108,8 @@ export default defineComponent({
     // 跳转到指定页面
     const toThisPageHandle = (event: PointerEvent) => {
       const target = event.target as HTMLButtonElement;
-      const pageNo = target.getAttribute("toThisPage");
+      const pageNo = Number(target.getAttribute("toThisPage"));
       if (pageNo) {
-        console.log("pageNo", pageNo);
         ctx.emit("toThisPage", pageNo);
       }
     };

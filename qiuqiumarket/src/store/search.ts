@@ -5,7 +5,6 @@ export default {
   actions: {
     async getSearchResult(context: any, value: searchParams) {
       const res = await getSearchResult(value);
-      console.log("getSearchResult", res.data);
       if (res.data.code === 200)
         context.commit("GETSEARCHRESULT", res.data.data);
     },

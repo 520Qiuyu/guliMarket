@@ -81,10 +81,10 @@
         </div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
-          <i class="summoney">{{checkedPrice}}</i>
+          <i class="summoney">{{ checkedPrice }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" target="_blank">结算</a>
+          <a class="sum-btn" @click="submit">结算</a>
         </div>
       </div>
     </div>
@@ -97,11 +97,14 @@ import { useStore } from "vuex";
 import { throttle } from "lodash";
 import { cartInfo, skuInfo } from "@/types/types";
 import { changeSkuChecked } from "../../api";
+import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   name: "ShopCart",
   setup(props, ctx) {
     const Store = useStore();
+    const Router = useRouter()
     // 购物车商品信息
     const shopCartInfo = computed(() => Store.state.shopCart.shopCartInfo[0]);
     // 商品数量更改的回调
@@ -142,14 +145,24 @@ export default defineComponent({
     const delThisGoods = async (skuId: number) => {
       try {
         await Store.dispatch("shopCart/delCart", skuId);
-        console.log("删除成功");
+        ElMessage({
+            message: "删除成功",
+            type: "success",
+            center: true,
+          });;
       } catch (error) {
-        console.log("error", error);
+        ElMessage({
+            message: (error as Error).message,
+            type: "error",
+            center: true,
+          });;
       }
     };
     // 计算是否全选
-    const isAllChecked = computed(() =>
-      checkList.value.every((item) => item === 1)
+    const isAllChecked = computed(
+      () =>
+        checkList.value.every((item) => item === 1) &&
+        checkList.value.length > 0
     );
     // 全选状态改变时，向服务器发送请求，改变购物车所有商品的选中状态
     const changeAllChecked = (event: Event) => {
@@ -179,8 +192,23 @@ export default defineComponent({
         }
       });
       return sum;
-    })
+    });
+    // 结算回调
+    const submit = () => {
+      if (checkedNum.value > 0) {
+        Router.push({
+          name: "trade",
+        });
+      } else {
+        ElMessage({
+          message:"请先选择商品",
+          type:"warning",
+          center:true
+        });
+      }
+    };
     return {
+      Store,
       shopCartInfo,
       changeHandle,
       changeSkuNum,
@@ -192,10 +220,11 @@ export default defineComponent({
       delCheckedGoods,
       checkedNum,
       checkedPrice,
+      submit,
     };
   },
   created() {
-    this.$store.dispatch("shopCart/getShopCartList");
+    this.Store.dispatch("shopCart/getShopCartList");
   },
 });
 </script>

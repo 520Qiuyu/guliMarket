@@ -11,9 +11,11 @@ const request = axios.create({
 //请求拦截器:在发请求之前可以检测到，可以干一些事情
 request.interceptors.request.use((config) => {
   nprogress.start();
-  if((store.state as { goods: any }).goods.uuid_token){
-    config.headers!.userTempId = (store.state as { goods: any }).goods.uuid_token as string
-  }
+
+  if ((store.state as { user: any }).user.token) {
+    config.headers!.token = (store.state as { user: any }).user.token as string;
+  } 
+  
   return config;
 });
 

@@ -1,6 +1,6 @@
 <template>
   <!-- 商品分类导航 -->
-  <div class="type-nav">
+  <div class="type-nav" v-if="categoryList">
     <div class="container" @mouseleave="hideAllSort">
       <h2 class="all" @mouseenter="showAllSort">全部商品分类</h2>
       <nav class="nav">
@@ -15,7 +15,7 @@
       </nav>
       <transition name="sort">
         <div class="sort" v-show="showSort">
-          <div class="all-sort-list2" @click="goSearch($event)">
+          <div class="all-sort-list2"  @click="goSearch($event)">
             <div
               :class="`item ${hoverIndex === index ? 'active' : ''}`"
               v-for="(c1, index) in categoryList"
@@ -91,7 +91,7 @@ export default defineComponent({
       hoverIndex.value = index;
     }, 50);
     // 跳转至search
-    const goSearch = (event: PointerEvent) => {
+    const goSearch = (event: MouseEvent) => {
       const target = event.target as HTMLAnchorElement;
       if (target.getAttribute("category-name")) {
         const location = {
@@ -157,6 +157,8 @@ export default defineComponent({
 }
 .type-nav {
   border-bottom: 2px solid #e1251b;
+  box-sizing: border-box;
+  height: 45px;
 
   .container {
     width: 1200px;
@@ -166,7 +168,6 @@ export default defineComponent({
 
     .all {
       width: 210px;
-      height: 45px;
       background-color: #e1251b;
       line-height: 45px;
       text-align: center;
@@ -195,7 +196,12 @@ export default defineComponent({
       position: absolute;
       background: #fafafa;
       z-index: 999;
+      
       .all-sort-list2 {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         .item {
           h3 {
             line-height: 30px;

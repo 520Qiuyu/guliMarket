@@ -171,3 +171,126 @@ export interface cartInfo {
   sourceType: string;
   userId: string;
 }
+export interface registerParams {
+  phone: string;
+  code: string;
+  password: string;
+}
+export interface loginParams {
+  phone: string;
+  password: string;
+  autoLogin: boolean;
+}
+export interface detailArray {
+  activityRule?: any;
+  couponInfoList?: [];
+  createTime?: string;
+  hasStock?: string;
+  id?: string;
+  imgUrl: string;
+  orderId?: string;
+  orderPrice: number;
+  refundStatus: string;
+  refundStatusString: string;
+  skuId: number;
+  skuName: string;
+  skuNum: number;
+  sourceId: number;
+  sourceType: string;
+  splitActivityAmount?: any;
+  splitCouponAmount?: any;
+  splitTotalAmount?: any;
+}
+export interface orderDetail {
+  activityRule?: any;
+  couponInfoList?: [];
+  createTime?: string;
+  hasStock?: any;
+  id?: number;
+  imgUrl: string;
+  orderId?: number;
+  orderPrice: number;
+  refundStatus: string;
+  refundStatusString: string;
+  skuId: number;
+  skuName: string;
+  skuNum: number;
+  sourceId: number;
+  sourceType: string;
+  splitActivityAmount?: any;
+  splitCouponAmount?: any;
+  splitTotalAmount?: any;
+}
+export interface userAddress {
+  consignee: string;
+  fullAddress: string;
+  id: number;
+  isDefault: string;
+  phoneNum: string;
+  provinceId: number;
+  regionId: number;
+  userAddress: string;
+  userId: number;
+}
+export interface tradeInfo {
+  activityReduceAmount: number;
+  couponInfoList: [];
+  detailArrayList: detailArray[];
+  orderDetailVoList: {
+    activityRule?: any;
+    orderDetailList: orderDetail[];
+  }[];
+
+  originalTotalAmount: number;
+  totalAmount: number;
+  totalNum: number;
+  tradeNo: string;
+  userAddressList: userAddress[];
+}
+
+export interface payInfo {
+  codeUrl: string;
+  orderId: number;
+  resultCode: string;
+  totalFee: number;
+}
+export interface order {
+  activityReduceAmount?: number;
+  consignee: string;
+  consigneeTel: string;
+  couponAmount?: number;
+  couponInfo?: string;
+  createTime: string;
+  deliveryAddress: string;
+  expireTime: string;
+  feightFee?: number;
+  feightFeeReduce?: number;
+  id: number;
+  imgUrl: string;
+  operateTime: string;
+  orderComment: string;
+  orderDetailList: orderDetail[];
+  orderDetailVoList: [];
+  orderStatus: string;
+  orderStatusName: string;
+  originalTotalAmount?: number;
+  outTradeNo: string;
+  parentOrderId?: number;
+  paymentWay: string;
+  processStatus: string;
+  provinceId?: string;
+  refundableTime?: string;
+  totalAmount: number;
+  trackingNo: string;
+  tradeBody: string;
+  userId: number;
+  wareId: number;
+}
+export interface myOrder {
+  current: number;
+  pages: number;
+  records: order[];
+  searchCount: boolean;
+  size: number;
+  total: number;
+}

@@ -3,6 +3,9 @@ import home from "./home";
 import search from "./search";
 import goods from "./goods";
 import shopCart from "./shopCart";
+import user from "./user";
+import trade from "./trade";
+import center from "./center";
 
 export default createStore({
   state: {},
@@ -14,5 +17,8 @@ export default createStore({
     search,
     goods,
     shopCart,
+    user,
+    trade,
+    center,
   },
 });

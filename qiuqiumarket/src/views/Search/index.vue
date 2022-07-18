@@ -64,7 +64,6 @@ export default defineComponent({
       pageSize: 3, //每一页需要展示多少条数据
     } as searchParams);
     const setSearchParams = (newParams: searchParams) => {
-      console.log("我出发了修改搜索参数： ", newParams);
       // 如果不是修改pageNo，那么必定会引起结果的改变，必须将要显示的页面置零
       if (!("pageNo" in newParams)) {
         Object.assign(newParams, { pageNo: 1 });
@@ -83,13 +82,11 @@ export default defineComponent({
         searchParams.category3Id = undefined;
         searchParams.categoryName = undefined;
         Object.assign(searchParams, Route.query, { pageNo: 1 });
-        console.log("路由：我变化了", searchParams);
       },
       { immediate: true }
     );
     // 监视searchParams，一旦变化，就要去更新搜索结果
     watch(searchParams, (newVal) => {
-      console.log("searchParams：我变化了", searchParams);
       Store.dispatch("search/getSearchResult", newVal);
     });
     const searchResult = computed<searchResult>(

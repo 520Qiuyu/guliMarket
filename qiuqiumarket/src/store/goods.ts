@@ -1,6 +1,5 @@
 import { getSkuDetail } from "@/api/index";
 import { skuDetail } from "@/types/types";
-import {getUuidToken} from "@/utils/uuid_token"
 export default {
   namespaced: true,
   actions: {
@@ -16,7 +15,6 @@ export default {
   },
   state: {
     skuDetail: {} as skuDetail,
-    uuid_token:getUuidToken(),
   },
   getters: {
     categoryView:(state:any)=>state.skuDetail.categoryView || {},

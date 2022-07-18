@@ -367,6 +367,7 @@ import {
 } from "@/types/types";
 import { changeSkuChecked } from "../../api/index";
 import { useRoute, useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
 
 export default defineComponent({
   name: "Detail",
@@ -432,7 +433,11 @@ export default defineComponent({
           },
         });
       } catch (error) {
-        console.log(error);
+        ElMessage({
+            message: (error as Error).message,
+            type: "error",
+            center: true,
+          });;
       }
     };
     return {

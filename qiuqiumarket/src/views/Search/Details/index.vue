@@ -37,12 +37,14 @@
     </div>
     <div class="goods-list">
       <ul class="yui3-g">
-        <li class="yui3-u-1-5" v-for="goods in goodsList" @click="goDetail(goods.id)">
+        <li
+          class="yui3-u-1-5"
+          v-for="goods in goodsList"
+          @click="goDetail(goods.id)"
+        >
           <div class="list-wrap">
             <div class="p-img">
-              <a 
-                ><img :src="goods.defaultImg"
-              /></a>
+              <a><img v-lazy="goods.defaultImg" /></a>
             </div>
             <div class="price">
               <strong>
@@ -61,14 +63,10 @@
               <i class="command">已有<span>2000</span>人评价</i>
             </div>
             <div class="operate">
-              <a
-                target="_blank"
-                class="sui-btn btn-bordered btn-danger"
+              <a target="_blank" class="sui-btn btn-bordered btn-danger"
                 >加入购物车</a
               >
-              <a class="sui-btn btn-bordered"
-                >收藏</a
-              >
+              <a class="sui-btn btn-bordered">收藏</a>
             </div>
           </div>
         </li>
@@ -122,7 +120,7 @@ export default defineComponent({
       currentOrder.value = target.getAttribute("order") as string;
     };
     // 当前所在页数
-    const currentPage = computed(() => props.searchParams.pageNo);
+    const currentPage = computed(() => props.searchParams.pageNo as number);
     // 上一页
     const toPrevPage = () => {
       if (currentPage.value === 1 || totalPages.value === 0)
@@ -148,14 +146,14 @@ export default defineComponent({
       });
     };
     // 跳转到详情页
-    const goDetail = (skuId:number)=>{
+    const goDetail = (skuId: number) => {
       Router.push({
-        name:"detail",
-        params:{
-          skuId
-        }
-      })
-    }
+        name: "detail",
+        params: {
+          skuId,
+        },
+      });
+    };
     return {
       goodsList,
       totalPages,

@@ -2,7 +2,7 @@
 import axios from "axios";
 import request from "./request";
 import mockAjax from "./mockAjax";
-import { searchParams } from "@/types/types";
+import { orderDetail, searchParams } from "@/types/types";
 
 // 获取首页轮播图
 export const getBannerList = () =>
@@ -94,4 +94,84 @@ export const delCart = (skuId: number) =>
   request({
     method: "DELETE",
     url: `/api/cart/deleteCart/${skuId}`,
+  });
+// 注册
+export const register = (phone: string, password: string, code: string) =>
+  request({
+    method: "post",
+    url: "/api/user/passport/register",
+    data: {
+      phone,
+      password,
+      code,
+    },
+  });
+// 获取验证码
+export const getCode = (phone: string) =>
+  request({
+    method: "get",
+    url: `/api/user/passport/sendCode/${phone}`,
+  });
+// 登录
+export const login = (phone: string, password: string) =>
+  request({
+    method: "post",
+    url: "/api/user/passport/login",
+    data: {
+      phone,
+      password,
+    },
+  });
+// 注销登录
+export const logout = () =>
+  request({
+    method: "get",
+    url: "/api/user/passport/logout",
+  });
+// 获取订单页信息
+export const getTrade = () =>
+  request({
+    method: "get",
+    url: "/api/order/auth/trade",
+  });
+// 提交订单
+export const submitOrder = (
+  tradeNo: string,
+  data: {
+    consignee: string;
+    consigneeTel: string;
+    deliveryAddress: string;
+    paymentWay: string;
+    orderComment: string;
+    orderDetailList: orderDetail[];
+  }
+) =>
+  request({
+    method: "post",
+    url: `/api/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    data,
+  });
+// 获取订单支付信息
+export const getPayInfo = (orderId: number) =>
+  request({
+    method: "get",
+    url: `/api/payment/weixin/createNative/${orderId}`,
+  });
+// 查询订单状态
+export const queryPayStatus = (orderId: number) =>
+  request({
+    method: "get",
+    url: `/api/payment/weixin/queryPayStatus/${orderId}`,
+  });
+// 查询用户信息
+export const getUserInfo = () =>
+  request({
+    method: "get",
+    url: "/api/user/passport/auth/getUserInfo",
+  });
+// 获取我的订单列表
+export const getMyOrderList = (page: number, limit: number) =>
+  request({
+    method: "get",
+    url: `/api/order/auth/${page}/${limit}`,
   });

@@ -5,6 +5,7 @@ import {
   getShopCartList,
 } from "@/api/index";
 import { cartInfo } from "@/types/types";
+import { ElMessage } from "element-plus";
 export default {
   namespaced: true,
   actions: {
@@ -38,6 +39,12 @@ export default {
     ) {
       const res = await changeSkuChecked(val.skuId, val.isChecked);
       if (res.data.code) context.dispatch("getShopCartList");
+      else
+        ElMessage({
+          message: "网络错误",
+          type: "error",
+          center: true,
+        });
     },
     async changeAllChecked(context: any, isChecked: "0" | "1") {
       /* 
@@ -48,7 +55,15 @@ export default {
           return changeSkuChecked(element.skuId, isChecked);
         }
       );
-      Promise.all(array).then(() => context.dispatch("getShopCartList"));
+      Promise.all(array)
+        .then(() => context.dispatch("getShopCartList"))
+        .catch((error) => {
+          ElMessage({
+            message: (error as Error).message,
+            type: "error",
+            center: true,
+          });
+        });
     },
     async delCheckedGoods(context: any) {
       const array = context.state.shopCartInfo[0].cartInfoList.map(
@@ -58,9 +73,17 @@ export default {
           }
         }
       );
-      Promise.all(array).then(() => {
-        context.dispatch("getShopCartList");
-      });
+      Promise.all(array)
+        .then(() => {
+          context.dispatch("getShopCartList");
+        })
+        .catch((error) =>
+          ElMessage({
+            message: (error as Error).message,
+            type: "error",
+            center: true,
+          })
+        );
     },
   },
   mutations: {
