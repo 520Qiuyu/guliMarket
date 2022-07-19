@@ -4,14 +4,14 @@
     <div class="container" @mouseleave="hideAllSort">
       <h2 class="all" @mouseenter="showAllSort">全部商品分类</h2>
       <nav class="nav">
-        <a href="###">服装城</a>
-        <a href="###">美妆馆</a>
-        <a href="###">尚品汇超市</a>
-        <a href="###">全球购</a>
-        <a href="###">闪购</a>
-        <a href="###">团购</a>
-        <a href="###">有趣</a>
-        <a href="###">秒杀</a>
+        <a >服装城</a>
+        <a >美妆馆</a>
+        <a >超市</a>
+        <a >全球购</a>
+        <a >闪购</a>
+        <a >团购</a>
+        <a >有趣</a>
+        <a >秒杀</a>
       </nav>
       <transition name="sort">
         <div class="sort" v-show="showSort">
@@ -156,7 +156,7 @@ export default defineComponent({
   display: none;
 }
 .type-nav {
-  border-bottom: 2px solid #e1251b;
+  border-bottom: 2px solid #ff6700;
   box-sizing: border-box;
   height: 45px;
 
@@ -168,7 +168,7 @@ export default defineComponent({
 
     .all {
       width: 210px;
-      background-color: #e1251b;
+      background-color: #ff6700;
       line-height: 45px;
       text-align: center;
       color: #fff;
@@ -280,7 +280,13 @@ export default defineComponent({
           }
         }
         .active {
-          background-color: skyblue;
+          background-color: #ff6700;
+          
+          transition: all .3s;
+          &>h3>a{
+            color:#fff;
+          }
+          
         }
       }
     }

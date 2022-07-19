@@ -14,7 +14,7 @@
           :loop="true"
         >
           <swiper-slide v-for="banner in bannerList" :key="banner.id"
-            ><img :src="banner.imgUrl"
+            ><img class="center-banner" :src="banner.imgUrl"
           /></swiper-slide>
         </Swiper>
       </div>
@@ -35,56 +35,56 @@
         </div>
         <ul class="lifeservices">
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">话费</span>
+            <el-icon :size="20" :color="`#333`"><AddLocation /></el-icon>
+            <span class="service-intro">配送</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">机票</span>
+            <el-icon :size="20" :color="`#333`"><Bell /></el-icon>
+            <span class="service-intro">抢购</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">电影票</span>
+            <el-icon :size="20" :color="`#333`"><ChatRound /></el-icon>
+            <span class="service-intro">详情</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">游戏</span>
+            <el-icon :size="20" :color="`#333`"><Filter /></el-icon>
+            <span class="service-intro">筛选</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">彩票</span>
+            <el-icon :size="20" :color="`#333`"><Headset /></el-icon>
+            <span class="service-intro">耳机</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">加油站</span>
+            <el-icon :size="20" :color="`#333`"><Service /></el-icon>
+            <span class="service-intro">服务</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">酒店</span>
+            <el-icon :size="20" :color="`#333`"><User /></el-icon>
+            <span class="service-intro">用户</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
-            <span class="service-intro">火车票</span>
+            <el-icon :size="20" :color="`#333`"><Setting /></el-icon>
+            <span class="service-intro">设置</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
+            <el-icon :size="20" :color="`#333`"><Sell /></el-icon>
             <span class="service-intro">众筹</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
+            <el-icon :size="20" :color="`#333`"><Postcard /></el-icon>
             <span class="service-intro">理财</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
+            <el-icon :size="20" :color="`#333`"><Goods /></el-icon>
             <span class="service-intro">礼品卡</span>
           </li>
           <li class="life-item">
-            <i class="list-item"></i>
+            <el-icon :size="20" :color="`#333`"><Apple /></el-icon>
             <span class="service-intro">白条</span>
           </li>
         </ul>
         <div class="ads">
-          <img src="./images/ad1.png" />
+          <img src="./images/cover1.png" />
         </div>
       </div>
     </div>
@@ -136,6 +136,16 @@ export default defineComponent({
       height: 100%;
       padding: 5px;
       float: left;
+
+      .swiper{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .center-banner{
+        width: 100%;
+
+      }
     }
 
     .right {
@@ -187,16 +197,14 @@ export default defineComponent({
           margin-right: -1px;
           height: 64px;
           text-align: center;
-          position: relative;
           cursor: pointer;
           width: 25%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          align-items: center;
 
-          .list-item {
-            background-image: url(./images/icons.png);
-            width: 61px;
-            height: 40px;
-            display: block;
-          }
+          .list-item
 
           .service-intro {
             line-height: 22px;
@@ -204,77 +212,7 @@ export default defineComponent({
             display: block;
           }
 
-          &:nth-child(1) {
-            .list-item {
-              background-position: 0px -5px;
-            }
-          }
-
-          &:nth-child(2) {
-            .list-item {
-              background-position: -62px -5px;
-            }
-          }
-
-          &:nth-child(3) {
-            .list-item {
-              background-position: -126px -5px;
-            }
-          }
-
-          &:nth-child(4) {
-            .list-item {
-              background-position: -190px -5px;
-            }
-          }
-
-          &:nth-child(5) {
-            .list-item {
-              background-position: 0px -76px;
-            }
-          }
-
-          &:nth-child(6) {
-            .list-item {
-              background-position: -62px -76px;
-            }
-          }
-
-          &:nth-child(7) {
-            .list-item {
-              background-position: -126px -76px;
-            }
-          }
-
-          &:nth-child(8) {
-            .list-item {
-              background-position: -190px -76px;
-            }
-          }
-
-          &:nth-child(9) {
-            .list-item {
-              background-position: 0px -146px;
-            }
-          }
-
-          &:nth-child(10) {
-            .list-item {
-              background-position: -62px -146px;
-            }
-          }
-
-          &:nth-child(11) {
-            .list-item {
-              background-position: -126px -146px;
-            }
-          }
-
-          &:nth-child(12) {
-            .list-item {
-              background-position: -190px -146px;
-            }
-          }
+         
         }
       }
 
@@ -282,11 +220,12 @@ export default defineComponent({
         margin-top: 5px;
 
         img {
-          opacity: 0.8;
+          width: 250px;
+          opacity: 1;
           transition: all 400ms;
 
           &:hover {
-            opacity: 1;
+            opacity: 0.8;
           }
         }
       }

@@ -4,12 +4,18 @@ import request from "./request";
 import mockAjax from "./mockAjax";
 import { orderDetail, searchParams } from "@/types/types";
 
-// 获取首页轮播图
+/* // 获取首页轮播图
 export const getBannerList = () =>
   mockAjax({
     method: "get",
     url: "banner",
-  });
+  }); */
+  // 获取首页轮播图
+export const getBannerList = () =>
+mockAjax({
+  method: "get",
+  url: "centerBannerList",
+});
 //获取floorList
 export const getFloorList = () =>
   mockAjax({

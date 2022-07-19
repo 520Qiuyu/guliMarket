@@ -14,10 +14,7 @@
           </li>
         </ul>
       </div>
-      <div class="ext">
-        <a href="javascript:void(0);" class="sui-btn">多选</a>
-        <a href="javascript:void(0);">更多</a>
-      </div>
+      
     </div>
     <div class="type-wrap" v-for="attr in attrsList" :key="attr.attrId">
       <div class="fl key">{{ attr.attrName }}</div>
@@ -82,7 +79,9 @@ export default defineComponent({
 
 <style scoped lang="less">
 .selector {
-  border: 1px solid #ddd;
+  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border:1px solid #ddd;
+  border-radius: 5px;
   margin-bottom: 5px;
   overflow: hidden;
   .logo {
@@ -99,6 +98,9 @@ export default defineComponent({
     position: relative;
     border-top: 1px solid #ddd;
     overflow: hidden;
+    &:first-child{
+      border-top:none;
+    }
     .key {
       width: 100px;
       background: #f1f1f1;
@@ -114,10 +116,10 @@ export default defineComponent({
       margin-left: 120px;
       padding-right: 90px;
       .logo-list {
+        display: flex;
+        justify-content: flex-start;
         li {
-          float: left;
           border: 1px solid #e4e4e4;
-          margin: -1px -1px 0 0;
           width: 105px;
           height: 52px;
           text-align: center;
@@ -125,15 +127,11 @@ export default defineComponent({
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          font-weight: 700;
-          color: #e1251b;
+          font-weight: 600;
+          color: #ff6700;
           font-style: italic;
           font-size: 14px;
           cursor: pointer;
-          img {
-            max-width: 100%;
-            vertical-align: middle;
-          }
         }
       }
       .type-list {
@@ -146,6 +144,9 @@ export default defineComponent({
             text-decoration: none;
             color: #666;
             cursor: pointer;
+          }
+          &:hover a {
+            color: #ff6700;
           }
         }
       }

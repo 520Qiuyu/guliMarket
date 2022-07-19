@@ -61,7 +61,7 @@ export default defineComponent({
       order: "1:desc", //携带给服务器参数order--->初始值"1:desc"[综合降序]
       pageNo: 1,
       // pageNo:parseInt(localStorage.getItem('pageNo'))||1, //获取第几页的数据，默认即为第一个的数据
-      pageSize: 3, //每一页需要展示多少条数据
+      pageSize: 10, //每一页需要展示多少条数据
     } as searchParams);
     const setSearchParams = (newParams: searchParams) => {
       // 如果不是修改pageNo，那么必定会引起结果的改变，必须将要显示的页面置零

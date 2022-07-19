@@ -60,31 +60,35 @@
       </div>
     </div>
     <div class="cart-tool">
-      <div class="select-all">
-        <input
-          class="chooseAll"
-          type="checkbox"
-          :checked="isAllChecked"
-          @change="changeAllChecked($event)"
-        />
-        <span>全选</span>
-      </div>
-      <div class="option">
-        <a @click="delCheckedGoods">删除选中的商品</a>
-        <a>移到我的关注</a>
-        <a>清除下柜商品</a>
-      </div>
-      <div class="money-box">
-        <div class="chosed">
-          已选择 <span>{{ checkedNum }}</span
-          >件商品
+      <div class="left">
+        <div class="select-all">
+          <input
+            class="chooseAll"
+            type="checkbox"
+            :checked="isAllChecked"
+            @change="changeAllChecked($event)"
+          />
+          <span>全选</span>
         </div>
-        <div class="sumprice">
-          <em>总价（不含运费） ：</em>
-          <i class="summoney">{{ checkedPrice }}</i>
+        <div class="option">
+          <a @click="delCheckedGoods">删除选中的商品</a>
+          <a>移到我的关注</a>
+          <a>清除下柜商品</a>
         </div>
-        <div class="sumbtn">
-          <a class="sum-btn" @click="submit">结算</a>
+      </div>
+      <div class="right">
+        <div class="money-box">
+          <div class="chosed">
+            已选择 <span>{{ checkedNum }}</span
+            >件商品
+          </div>
+          <div class="sumprice">
+            <em>总价（不含运费） ：</em>
+            <i class="summoney">{{ checkedPrice }}</i>
+          </div>
+          <div class="sumbtn">
+            <a class="sum-btn" @click="submit">结算</a>
+          </div>
         </div>
       </div>
     </div>
@@ -104,7 +108,7 @@ export default defineComponent({
   name: "ShopCart",
   setup(props, ctx) {
     const Store = useStore();
-    const Router = useRouter()
+    const Router = useRouter();
     // 购物车商品信息
     const shopCartInfo = computed(() => Store.state.shopCart.shopCartInfo[0]);
     // 商品数量更改的回调
@@ -146,16 +150,16 @@ export default defineComponent({
       try {
         await Store.dispatch("shopCart/delCart", skuId);
         ElMessage({
-            message: "删除成功",
-            type: "success",
-            center: true,
-          });;
+          message: "删除成功",
+          type: "success",
+          center: true,
+        });
       } catch (error) {
         ElMessage({
-            message: (error as Error).message,
-            type: "error",
-            center: true,
-          });;
+          message: (error as Error).message,
+          type: "error",
+          center: true,
+        });
       }
     };
     // 计算是否全选
@@ -201,9 +205,9 @@ export default defineComponent({
         });
       } else {
         ElMessage({
-          message:"请先选择商品",
-          type:"warning",
-          center:true
+          message: "请先选择商品",
+          type: "warning",
+          center: true,
         });
       }
     };
@@ -244,7 +248,7 @@ export default defineComponent({
     .cart-th {
       background: #f5f5f5;
       border: 1px solid #ddd;
-      padding: 10px;
+      padding: 15px;
       overflow: hidden;
 
       & > div {
@@ -277,16 +281,14 @@ export default defineComponent({
 
     .cart-body {
       margin: 15px 0;
-      border: 1px solid #ddd;
 
       .cart-list {
         padding: 10px;
-        border-bottom: 1px solid #ddd;
+        border: 1px solid #ddd;
         overflow: hidden;
-
-        & > li {
-          float: left;
-        }
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
 
         .cart-list-con1 {
           width: 15%;
@@ -368,7 +370,14 @@ export default defineComponent({
   .cart-tool {
     overflow: hidden;
     border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
+    .left,.right{
+      display: flex;
+      align-items: center;
+    }
     .select-all {
       padding: 10px;
       overflow: hidden;
@@ -396,7 +405,8 @@ export default defineComponent({
     }
 
     .money-box {
-      float: right;
+      display: flex;
+      align-items: center;
 
       .chosed {
         line-height: 26px;
@@ -411,7 +421,7 @@ export default defineComponent({
         padding: 0 10px;
 
         .summoney {
-          color: #c81623;
+          color: #ff6700;
           font-size: 16px;
         }
       }
@@ -429,7 +439,7 @@ export default defineComponent({
           text-align: center;
           font-size: 18px;
           font-family: "Microsoft YaHei";
-          background: #e1251b;
+          background: #ff6700;
           overflow: hidden;
         }
       }

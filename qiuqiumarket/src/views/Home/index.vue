@@ -5,7 +5,7 @@
   <Rank></Rank>
   <Like></Like>
   <Floor v-for="floor in floorList" :key="floor.id" :floor="floor"></Floor>
-  <Brand></Brand>
+
 </template>
 
 <script lang="ts">
@@ -16,7 +16,6 @@ import TodayRecommend from "./TodayRecommend/index.vue";
 import Rank from "./Rank/index.vue";
 import Like from "./Like/index.vue";
 import Floor from "./Floor/index.vue";
-import Brand from "./Brand/index.vue";
 import { useStore } from "vuex";
 import { floor } from "@/types/types";
 export default defineComponent({
@@ -28,7 +27,6 @@ export default defineComponent({
     Rank,
     Like,
     Floor,
-    Brand,
   },
   props: {},
   setup(props, ctx) {

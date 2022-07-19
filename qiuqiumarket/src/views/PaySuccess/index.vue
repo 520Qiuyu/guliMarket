@@ -40,6 +40,7 @@
         font-weight: 700;
         font-size: 20px;
         line-height: 30px;
+        text-align: center;
 
         img {
           max-width: 100%;
@@ -56,6 +57,7 @@
         .button {
           margin: 30px 0;
           line-height: 26px;
+          text-align: center;
 
           a {
             display: inline-block;
@@ -73,8 +75,8 @@
             &.btn-look {
               margin-right: 13px;
               color: #fff;
-              background-color: #e1251b;
-              border: 1px solid #e1251b;
+              background-color: #ff6700;
+              border: 1px solid #ff6700;
             }
 
             &.btn-goshop {

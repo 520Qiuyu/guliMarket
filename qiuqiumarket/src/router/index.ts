@@ -41,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
       showFooter: true,
       needLogin: true,
     },
+    beforeEnter: (to, from) => {
+      if (from.name === "detail") return true;
+      return {name:"shopcart"};
+    },
   },
   // 购物车
   {
@@ -61,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "register",
     component: () => import("@/views/Register/index.vue"),
   },
-  // 我的订单
+  // 提交订单
   {
     path: "/trade",
     name: "trade",
@@ -70,7 +74,8 @@ const routes: Array<RouteRecordRaw> = [
       needLogin: true,
     },
     beforeEnter: (to, from) => {
-      if (from.name === "shopcart" || from.name === "pay") return true;
+      console.log('from.name',to.name)
+      if (from.name === "shopcart" || from.name === "pay" ||!from.name) return true;
       return false;
     },
   },
@@ -83,8 +88,8 @@ const routes: Array<RouteRecordRaw> = [
       needLogin: true,
     },
     beforeEnter: (to, from) => {
-      if (from.name === "trade" || from.name === "paysuccess" ) return true;
-      return false;
+      if (from.name === "trade" || from.name === "paysuccess" ||!from.name) return true;
+      return from;
     },
   },
   // 支付成功
@@ -96,8 +101,9 @@ const routes: Array<RouteRecordRaw> = [
       needLogin: true,
     },
     beforeEnter: (to, from) => {
-      if (from.name === "pay" && to.params.paysuccess === "支付成功" ) return true;
-      return false;
+      if (from.name === "pay" && to.params.paysuccess === "支付成功")
+        return true;
+      return {name:"myorder"};
     },
   },
   // 个人中心
@@ -183,7 +189,7 @@ router.beforeEach(async (to, from) => {
         });
       }
 
-      return `/login?redirect=${to.name as string}`;
+      return `/login?redirect=${to.name as string}&query=${JSON.stringify(to.query)}&params=${JSON.stringify(to.params)}`;
     }
     return true;
   }

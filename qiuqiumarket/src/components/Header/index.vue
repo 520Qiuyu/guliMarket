@@ -21,10 +21,10 @@
         <div class="typeList">
           <router-link to="/center">我的订单</router-link>
           <router-link to="/shopcart">我的购物车</router-link>
-          <a>我的尚品汇</a>
-          <a>尚品汇会员</a>
+          <a>我的商城</a>
+          <a>邱邱会员</a>
           <a>企业采购</a>
-          <a>关注尚品汇</a>
+          <a @click="followMe">关注邱邱</a>
           <a>合作招商</a>
           <a>商家后台</a>
         </div>
@@ -33,8 +33,8 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="/">
-          <img src="./images/logo.png" alt="" />
+        <a class="logo" title="点击去主页">
+          <img src="./images/logo.png" />
         </a>
       </h1>
       <div class="searchArea">
@@ -45,6 +45,7 @@
             class="input-error input-xxlarge"
             v-model="keyword"
             @keydown.enter="goSearch"
+            placeholder="请输入关键词"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -99,17 +100,25 @@ export default defineComponent({
         });
       } catch (error) {
         ElMessage({
-          message:(error as Error).message,
-          type:"error",
-          center:true
-        })
+          message: (error as Error).message,
+          type: "error",
+          center: true,
+        });
       }
     };
+    // 关注我回调 滚动到最底部
+    const followMe = () => {
+      scrollTo({
+        top:10000,
+        behavior:"smooth"
+      })
+    }
     return {
       keyword,
       goSearch,
       userInfo,
       logout,
+      followMe,
     };
   },
 });
@@ -117,14 +126,18 @@ export default defineComponent({
 
 <style scoped lang="less">
 .header {
-  width: 100%;
   min-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  a {
+    color: #b0b0b0;
+  }
   & > .top {
     width: 100%;
-    background-color: #eaeaea;
+    color: #b0b0b0;
+    background-color: #333;
     height: 30px;
     line-height: 30px;
     box-sizing: border-box;
@@ -141,9 +154,15 @@ export default defineComponent({
         p {
           float: left;
           margin-right: 10px;
+          a:hover {
+            color: #fff;
+          }
+          i {
+            color: #424242;
+          }
 
           .register {
-            border-left: 1px solid #b3aeae;
+            border-left: 1px solid #424242;
             padding: 0 5px;
             margin-left: 5px;
           }
@@ -151,12 +170,16 @@ export default defineComponent({
       }
 
       .typeList {
+
         a {
           padding: 0 10px;
 
           & + a {
-            border-left: 1px solid #b3aeae;
+            border-left: 1px solid #424242;
           }
+        }
+        a:hover{
+          color:#fff;
         }
       }
     }
@@ -173,16 +196,17 @@ export default defineComponent({
     align-items: flex-end;
 
     .logoArea {
-
+      margin-bottom: -15px;
       .logo {
         img {
-          width: 175px;
+          width: 224px;
+          position: relative;
+          left: -60px;
         }
       }
     }
 
     .searchArea {
-
       .searchForm {
         overflow: hidden;
 
@@ -190,8 +214,8 @@ export default defineComponent({
           box-sizing: border-box;
           width: 490px;
           height: 32px;
-          padding: 0px 4px;
-          border: 2px solid #ea4a36;
+          padding: 0px 15px;
+          border: 2px solid #e0e0e0;
           float: left;
 
           &:focus {
@@ -202,9 +226,10 @@ export default defineComponent({
         button {
           height: 32px;
           width: 68px;
-          background-color: #ea4a36;
+          background-color: #FF6700;
           border: none;
-          color: #fff;
+          color: #FFF;
+          border-left: none;
           float: left;
           cursor: pointer;
 

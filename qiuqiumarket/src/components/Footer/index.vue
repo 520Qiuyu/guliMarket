@@ -49,13 +49,13 @@
             <li>夺宝岛</li>
             <li>DIY装机</li>
             <li>延保服务</li>
-            <li>尚品汇E卡</li>
-            <li>尚品汇通信</li>
+            <li>邱邱E卡</li>
+            <li>邱邱通信</li>
           </ul>
         </div>
         <div class="footerItem">
           <h4>帮助中心</h4>
-          <img src="./images/wx_cz.jpg" />
+          <img src="./images/wechat.jpg" />
         </div>
       </div>
       <div class="copyright">
@@ -98,8 +98,8 @@
           </li>
           <li>关于我们</li>
         </ul>
-        <p>地址：北京市昌平区宏福科技园综合楼6层</p>
-        <p>京ICP备19006430号</p>
+        <p>地址：湖北省武汉市武汉科技大学黄家湖校区</p>
+        <p>京ICP备1314520号</p>
       </div>
     </div>
   </div>
@@ -119,17 +119,17 @@ export default defineComponent({
 
 <style scoped lang="less">
 .footer {
-  background-color: #eaeaea;
+  background-color: #333;
+  color:#b0b0b0;
 
   .footer-container {
     width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
+    box-sizing: border-box;
 
     .footerList {
       padding: 20px;
-      border-bottom: 1px solid #e4e1e1;
-      border-top: 1px solid #e4e1e1;
       overflow: hidden;
       padding-left: 40px;
 
@@ -139,11 +139,13 @@ export default defineComponent({
 
         h4 {
           font-size: 14px;
+          margin-bottom: 12px;
         }
 
         .footerItemCon {
           li {
             line-height: 18px;
+            margin-bottom: 5px;
           }
         }
 

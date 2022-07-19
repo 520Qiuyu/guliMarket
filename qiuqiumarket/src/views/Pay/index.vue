@@ -205,11 +205,11 @@ export default defineComponent({
     width: 1200px;
 
     a:hover {
-      color: #4cb9fc;
+      color:#ff6700;
     }
 
     .orange {
-      color: #e1251b;
+      color:#ff6700;
     }
 
     .money {
@@ -217,7 +217,7 @@ export default defineComponent({
     }
 
     .zfb {
-      color: #e1251b;
+      color:#ff6700;
       font-weight: 700;
     }
 
@@ -268,13 +268,13 @@ export default defineComponent({
       padding-left: 25px;
       padding-bottom: 15px;
       margin-bottom: 10px;
-      border: 2px solid #e1251b;
+      border: 2px solid #ff6700;
 
       h4 {
         margin: 9px 0;
         font-size: 14px;
         line-height: 21px;
-        color: #e1251b;
+        color:#ff6700;
       }
 
       ol {
@@ -334,8 +334,8 @@ export default defineComponent({
         font: 18px "微软雅黑";
         font-weight: 700;
         border-radius: 0;
-        background-color: #e1251b;
-        border: 1px solid #e1251b;
+        background-color:#ff6700;
+        border: 1px solid #ff6700;
         color: #fff;
         text-align: center;
         vertical-align: middle;

@@ -311,7 +311,7 @@ export default defineComponent({
       }
 
       .username.selected {
-        border-color: #e1251b;
+        border-color: #ff6700;
       }
 
       .username.selected::after {
@@ -390,8 +390,6 @@ export default defineComponent({
 
     .detail {
       width: 1080px;
-
-      background: #feedef;
       padding: 15px;
       margin: 2px auto 0;
 
@@ -400,20 +398,22 @@ export default defineComponent({
       }
 
       .list {
+        border-bottom:1px solid #e0e0e0;
         display: flex;
         justify-content: space-between;
         height: 70px;
         margin-bottom: 15px;
+        padding: 10px 20px;
         li {
           height: 100%;
 
           h4 {
-            color: #c81623;
+            color: #ff6700;
             font-weight: 400;
           }
 
           h3 {
-            color: #e12228;
+            color: #ff6700;
           }
         }
         .imgBox {
@@ -452,9 +452,11 @@ export default defineComponent({
       textarea {
         width: 100%;
         border-color: #e4e2e2;
-        line-height: 1.8;
+        line-height: 2;
         outline: none;
         resize: none;
+        padding: 5px 10px;
+        box-sizing: border-box;
       }
     }
 
@@ -525,7 +527,7 @@ export default defineComponent({
       line-height: 56px;
       text-align: center;
       color: #fff;
-      background-color: #e1251b;
+      background-color: #ff6700;
     }
   }
 }

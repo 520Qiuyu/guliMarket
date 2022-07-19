@@ -356,7 +356,7 @@ export default defineComponent({
 
             a {
               width: 250px;
-              color: #e1251b;
+              color: #ff6700;
 
               &.service {
                 color: #666;

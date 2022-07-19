@@ -99,8 +99,9 @@ export default defineComponent({
 
 <style scoped lang="less">
 .hot-sale {
-  margin-bottom: 5px;
-  border: 1px solid #ddd;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  // border: 1px solid #ddd;
   .title {
     font-weight: 700;
     font-size: 14px;
@@ -115,10 +116,14 @@ export default defineComponent({
     padding: 15px;
     ul {
       display: flex;
+      justify-content: space-between;
       li {
-        width: 25%;
+        width: 20%;
         height: 100%;
         .list-wrap {
+          box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+          border-radius: 5px;
+          padding: 10px;
           .p-img,
           .price,
           .attr,
@@ -144,10 +149,10 @@ export default defineComponent({
             line-height: 1.8;
           }
           .price {
-            font-size: 18px;
-            color: #c81623;
+            font-size: 14px;
+            color: #ff6700;
             strong {
-              font-weight: 700;
+              font-weight: 500;
             }
           }
           .commit {

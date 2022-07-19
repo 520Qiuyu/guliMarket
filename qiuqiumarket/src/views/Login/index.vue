@@ -105,23 +105,29 @@ export default defineComponent({
             password: password.value,
             autoLogin: autoLogin.value,
           });
-          
           Router.push({
-            name: Route.query.redirect as string || "home",
+            name: (Route.query.redirect as string) || "home",
+            query: JSON.parse(Route.query.query as string),
+            params: JSON.parse(Route.query.params as string),
+          });
+          ElMessage({
+            message: "登录成功",
+            type: "success",
+            center: true,
           });
         } catch (error) {
           ElMessage({
-            message:(error as Error).message,
-            type:"error",
-            center:true
-          })
+            message: (error as Error).message,
+            type: "error",
+            center: true,
+          });
         }
       } else {
         ElMessage({
-            message:"请填写完整信息",
-            type:"error",
-            center:true
-          })
+          message: "请填写完整信息",
+          type: "error",
+          center: true,
+        });
       }
     };
     return {

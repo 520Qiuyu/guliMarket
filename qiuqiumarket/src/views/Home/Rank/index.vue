@@ -4,23 +4,10 @@
     <div class="tab">
       <div class="tab-tit clearfix">
         <a href="javascript:;" class="on">
-          <p class="img">
-            <i></i>
-          </p>
+          
           <p class="text">热卖排行</p>
         </a>
-        <a href="javascript:;">
-          <p class="img">
-            <i></i>
-          </p>
-          <p class="text">特价排行</p>
-        </a>
-        <a href="javascript:;">
-          <p class="img">
-            <i></i>
-          </p>
-          <p class="text">新品排行</p>
-        </a>
+        
       </div>
     </div>
     <div class="content">
@@ -28,66 +15,61 @@
         <li>
           <div class="img-item">
             <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
+              <a>
+                <img src="./images/小米12SUltra.png" />
               </a>
             </p>
             <div class="tab-info">
               <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色
-                  移动联通电信4G手机</a
-                >
+                <a>Xiaomi 12S Ultra</a>
+                <span>这真徕卡 | 专业徕卡影像</span>
               </div>
-              <p class="info-price">定金：¥100.00</p>
+              <p class="info-price">¥100.00 起</p>
             </div>
           </div>
           <div class="img-item">
             <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
+              <a>
+                <img src="./images/小米12PRO天玑版.png" />
               </a>
             </p>
             <div class="tab-info">
               <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色
-                  移动联通电信4G手机</a
+                <a>Xiaomi 12 Pro 天玑版</a>
+                <span
+                  >全球首发天玑9000+｜叶脉冷泵散热系统｜2K AMOLED 超视感屏
+                  ｜5000万疾速影像</span
                 >
               </div>
-              <p class="info-price">定金：¥100.00</p>
+              <p class="info-price">¥100.00 起</p>
             </div>
           </div>
           <div class="img-item">
             <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
+              <a>
+                <img src="./images/小米12S.png" />
               </a>
             </p>
             <div class="tab-info">
               <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色
-                  移动联通电信4G手机</a
-                >
+                <a>Xiaomi 12S </a>
+                <span>小尺寸性能旗舰 | 徕卡影像</span>
               </div>
-              <p class="info-price">定金：¥100.00</p>
+              <p class="info-price">¥100.00 起</p>
             </div>
           </div>
           <div class="img-item">
             <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
+              <a>
+                <img src="./images/小米civi1s.png" />
               </a>
             </p>
             <div class="tab-info">
               <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色
-                  移动联通电信4G手机</a
-                >
+                <a> Xiaomi Civi 1S </a>
+                <span>原生美肌人像｜奇迹阳光动人新色｜骁龙778G Plus</span>
               </div>
-              <p class="info-price">定金：¥100.00</p>
+              <p class="info-price">¥100.00 起</p>
             </div>
           </div>
         </li>
@@ -124,10 +106,10 @@ export default defineComponent({
       a {
         display: block;
         padding: 0 18px;
-        float: left;
         text-decoration: none;
-        font-size: 16px;
-        color: #999;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 10px 0;
 
         p {
           margin: 5px 0;
@@ -138,7 +120,6 @@ export default defineComponent({
             width: 35px;
             height: 35px;
             display: block;
-            background: url(./images/bg0.png);
             margin-left: 10px;
           }
         }
@@ -149,7 +130,7 @@ export default defineComponent({
       }
 
       .on {
-        color: #e60012;
+        color: #ff6700;
 
         .img {
           i {
@@ -162,21 +143,37 @@ export default defineComponent({
 
   .content {
     overflow: hidden;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
 
     ul {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       li {
         overflow: hidden;
         list-style: none;
         line-height: 18px;
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         .img-item {
-          border: 1px solid #e1251b;
           width: 269px;
           float: left;
           overflow: hidden;
-          margin: 0 12px 10px;
+          margin: 10px 10px 10px;
           background: #fff;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+          border-radius: 5px;
+          transition: all 0.2s linear;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+          }
 
           .tab-pic {
             width: 230px;
@@ -194,26 +191,32 @@ export default defineComponent({
           }
 
           .tab-info {
-            background: #fafafa;
-
             .info-title {
-              height: 50px;
-              line-height: 28px;
-              overflow: hidden;
               margin: 0 auto;
               padding-left: 10px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
 
               a {
                 color: #333;
                 text-decoration: none;
               }
+              span {
+                width: 90%;
+                color: #b0b0b0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: center;
+              }
             }
 
             .info-price {
-              font-size: 20px;
-              color: #e1251b;
+              font-size: 14px;
+              color: #ff6700;
               height: 35px;
-              padding-left: 10px;
+              text-align: center;
               display: block;
               line-height: 24px;
               margin: 10px auto 0;

@@ -121,7 +121,7 @@
       </div>
     </section>
 
-    <!-- 内容详情页 -->
+    <!-- 内容详情页
     <section class="product-detail" v-if="Store.state.goods.skuDetail">
       <aside class="aside">
         <div class="tabWraped">
@@ -347,7 +347,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -434,10 +434,10 @@ export default defineComponent({
         });
       } catch (error) {
         ElMessage({
-            message: (error as Error).message,
-            type: "error",
-            center: true,
-          });;
+          message: (error as Error).message,
+          type: "error",
+          center: true,
+        });
       }
     };
     return {
@@ -500,14 +500,15 @@ export default defineComponent({
         }
 
         .news {
-          color: #e12228;
+          color: #ff6700;
           margin-top: 15px;
         }
 
         .priceArea {
-          background: #fee9eb;
+          background: #fafafa;
           padding: 7px;
           margin: 13px 0;
+          border: 1px solid #e0e0e0;
 
           .priceArea1 {
             overflow: hidden;
@@ -521,7 +522,7 @@ export default defineComponent({
 
             .price {
               float: left;
-              color: #c81623;
+              color: #ff6700;
 
               i {
                 font-size: 16px;
@@ -557,7 +558,7 @@ export default defineComponent({
               float: left;
 
               .red-bg {
-                background: #c81623;
+                background: #ff6700;
                 color: #fff;
                 padding: 3px;
               }
@@ -572,6 +573,7 @@ export default defineComponent({
         .support {
           border-bottom: 1px solid #ededed;
           padding-bottom: 5px;
+          padding: 7px;
 
           .supportArea {
             overflow: hidden;
@@ -600,6 +602,7 @@ export default defineComponent({
             dl {
               overflow: hidden;
               margin: 13px 0;
+              padding: 7px;
 
               dt {
                 margin-right: 15px;
@@ -634,12 +637,13 @@ export default defineComponent({
               margin-right: 15px;
 
               .itxt {
-                width: 38px;
+                width: 39px;
                 height: 37px;
+                box-sizing: border-box;
                 border: 1px solid #ddd;
                 color: #555;
                 float: left;
-                border-right: 0;
+                border-right: none;
                 text-align: center;
               }
 
@@ -673,12 +677,12 @@ export default defineComponent({
               float: left;
 
               a {
-                background-color: #e1251b;
+                background-color: #ff6700;
                 padding: 0 25px;
                 font-size: 16px;
                 color: #fff;
-                height: 36px;
-                line-height: 36px;
+                height: 37px;
+                line-height: 37px;
                 display: block;
                 cursor: pointer;
               }

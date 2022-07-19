@@ -175,15 +175,14 @@ export default defineComponent({
   margin-bottom: 5px;
   .sui-navbar {
     overflow: visible;
-    margin-bottom: 0;
+    margin-top: 10px;
 
     .filter {
       min-height: 40px;
       padding-right: 20px;
       background: #fbfbfb;
       border: 1px solid #e2e2e2;
-      padding-left: 0;
-      border-radius: 0;
+      border-radius: 5px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
       .sui-nav {
         position: relative;
@@ -202,7 +201,7 @@ export default defineComponent({
             text-decoration: none;
           }
           .active {
-            background: #e1251b;
+            background: #ff6700;
             color: #fff;
           }
         }
@@ -212,21 +211,32 @@ export default defineComponent({
   .goods-list {
     margin: 20px 0;
     ul {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+      gap: 20px;
       li {
         height: 100%;
-        width: 20%;
-        margin-top: 10px;
         line-height: 28px;
         .list-wrap {
+          background: #fff;
+          box-shadow: 0 0 5px rgb(0 0 0 / 30%);
+          border-radius: 5px;
+          transition: all 0.2s linear;
+          display: flex;
+          flex-direction: column;
+          
+
+          &:hover{
+            transform: translateY(-10px);
+          }
           .p-img {
-            padding-left: 15px;
             width: 215px;
-            height: 255px;
+            height: 250px;
+            align-self: center;
             a {
               color: #666;
               img {
+                margin-top: 15px;
                 max-width: 100%;
                 height: auto;
                 vertical-align: middle;
@@ -236,9 +246,9 @@ export default defineComponent({
           .price {
             padding-left: 15px;
             font-size: 18px;
-            color: #c81623;
+            color: #ff6700;
             strong {
-              font-weight: 700;
+              font-weight: 500;
             }
           }
           .attr {
@@ -269,19 +279,19 @@ export default defineComponent({
           }
           .operate {
             padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            width: 75%;
             .sui-btn {
-              display: inline-block;
+              display: block;
               padding: 2px 14px;
-              box-sizing: border-box;
-              margin-bottom: 0;
-              font-size: 12px;
+                font-size: 12px;
               line-height: 18px;
               text-align: center;
-              vertical-align: middle;
               cursor: pointer;
-              border-radius: 0;
+              box-sizing: border-box;
               background-color: transparent;
-              margin-right: 15px;
+              
             }
             .btn-bordered {
               min-width: 85px;
@@ -293,14 +303,15 @@ export default defineComponent({
                 color: #fff !important;
                 background-color: #666;
                 text-decoration: none;
+                
               }
             }
             .btn-danger {
-              border: 1px solid #e1251b;
-              color: #e1251b;
+              border: 1px solid #ff6700;
+              color: #ff6700;
               &:hover {
-                border: 1px solid #e1251b;
-                background-color: #e1251b;
+                border: 1px solid #ff6700;
+                background-color: #ff6700;
                 color: white !important;
                 text-decoration: none;
               }
@@ -341,7 +352,7 @@ export default defineComponent({
           &.active {
             a {
               background-color: #fff;
-              color: #e1251b;
+              color: #ff6700;
               border-color: #fff;
               cursor: default;
             }

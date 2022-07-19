@@ -57,11 +57,10 @@
                 }"
                 :loop="true"
               >
-                <swiper-slide v-for="carousel in floor.carouselList" :key="carousel.id"><img :src="carousel.imgUrl" /></swiper-slide>
+                <swiper-slide v-for="carousel in floor.carouselList" :key="carousel.id"><img class="carousel" :src="carousel.imgUrl" /></swiper-slide>
               </swiper>
             </div>
             <div class="split">
-              <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
                 <img :src="floor.recommendList[0]" />
               </div>
@@ -73,7 +72,6 @@
               <img :src="floor.bigImg" />
             </div>
             <div class="split">
-              <span class="floor-x-line"></span>
               <div class="floor-conver-pit">
                 <img :src="floor.recommendList[2]" />
               </div>
@@ -128,11 +126,11 @@ export default defineComponent({
     .title {
       .fl {
         float: left;
-        color: #c81623;
-        font-size: 20px;
+        color: #333;
+        font-size: 22px;
         line-height: 30px;
         margin: 9px 0;
-        font-weight: 700;
+        font-weight: 500;
       }
 
       .fr {
@@ -176,63 +174,72 @@ export default defineComponent({
     }
 
     .tab-content {
-      border-top: 2px solid #c81623;
-      border-bottom: 1px solid #e4e4e4;
-
+      border-radius: 5px;
+      margin:10px;
+      background-color: #f7f7f7;
+      padding: 10px;
       .tab-pane {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         .floor-1 {
-          height: 360px;
+          height: 380px;
           display: flex;
+          &>div{
+            padding:5px;
+          }
 
           .blockgary {
             width: 210px;
             height: 100%;
-            background: #f7f7f7;
+            padding: 5px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
 
             .jd-list {
-              padding: 15px 0;
-              overflow: hidden;
-
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              
               li {
                 list-style-type: none;
-                float: left;
                 width: 40%;
-                margin: 0 10px;
-                border-bottom: 1px solid #e4e4e4;
+                margin: 5px 10px;
+                background-color: #fff;
                 text-align: center;
                 line-height: 26px;
               }
             }
 
-            img {
-              width: 100%;
-            }
           }
 
           .floorBanner {
             width: 330px;
-            height: 100%;
+            height: 380px;
+            padding:5px;
+            display: flex;
+            align-items: center;
+
+            .carousel{
+              width: 100%;
+              height: 380px;
+            }
           }
 
           .split {
-            width: 220px;
             height: 100%;
             position: relative;
 
-            .floor-x-line {
-              position: absolute;
-              background: #e4e4e4;
-              width: 220px;
-              height: 1px;
-              top: 180px;
-            }
+            
 
             .floor-conver-pit {
               width: 100%;
               height: 50%;
 
               img {
-                width: 100%;
                 height: 100%;
                 transition: all 400ms;
 
@@ -244,7 +251,12 @@ export default defineComponent({
           }
 
           .center {
-            border: 1px solid #e4e4e4;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            img{
+              height: 100%;
+            }
           }
         }
       }

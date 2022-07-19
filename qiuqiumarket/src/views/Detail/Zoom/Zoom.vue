@@ -47,7 +47,6 @@ export default defineComponent({
   position: relative;
   width: 400px;
   height: 400px;
-  border: 1px solid #ccc;
 
   img {
     width: 100%;

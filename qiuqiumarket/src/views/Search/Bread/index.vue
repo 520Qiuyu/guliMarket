@@ -120,12 +120,13 @@ export default defineComponent({
       margin: 0 5px 5px 0;
       display: inline-block;
       overflow: hidden;
-      color: #000;
-      background: #f7f7f7;
+      color: #333;
+      background: #fff;
       padding: 0 7px;
       height: 20px;
       line-height: 20px;
-      border: 1px solid #dedede;
+      box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+      border-radius: 3px;
       white-space: nowrap;
       transition: color 400ms;
       cursor: pointer;
