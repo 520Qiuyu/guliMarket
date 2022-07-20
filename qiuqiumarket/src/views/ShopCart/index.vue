@@ -323,9 +323,11 @@ export default defineComponent({
             border-right: 0;
             float: left;
             color: #666;
-            width: 6px;
             text-align: center;
             padding: 8px;
+            height: 33px;
+            box-sizing: border-box;
+            
           }
 
           input {
@@ -335,16 +337,19 @@ export default defineComponent({
             float: left;
             text-align: center;
             font-size: 14px;
+            box-sizing: border-box;
           }
 
           .plus {
+            display: block;
             border: 1px solid #ddd;
             border-left: 0;
             float: left;
             color: #666;
-            width: 6px;
             text-align: center;
             padding: 8px;
+            height: 33px;
+            box-sizing: border-box;
           }
         }
 
@@ -374,7 +379,8 @@ export default defineComponent({
     align-items: center;
     justify-content: space-between;
 
-    .left,.right{
+    .left,
+    .right {
       display: flex;
       align-items: center;
     }

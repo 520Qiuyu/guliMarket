@@ -16,7 +16,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a>
-                <img src="./images/小米12SUltra.png" />
+                <img src="./images/XiaoMi12SUltra.png" />
               </a>
             </p>
             <div class="tab-info">
@@ -30,7 +30,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a>
-                <img src="./images/小米12PRO天玑版.png" />
+                <img src="./images/XiaoMi12PROTJ.png" />
               </a>
             </p>
             <div class="tab-info">
@@ -47,7 +47,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a>
-                <img src="./images/小米12S.png" />
+                <img src="./images/XiaoMi12S.png" />
               </a>
             </p>
             <div class="tab-info">
@@ -61,7 +61,7 @@
           <div class="img-item">
             <p class="tab-pic">
               <a>
-                <img src="./images/小米civi1s.png" />
+                <img src="./images/XiaoMicivi1s.png" />
               </a>
             </p>
             <div class="tab-info">
