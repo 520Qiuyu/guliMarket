@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     beforeEnter: (to, from) => {
       if (from.name === "detail") return true;
-      return {name:"shopcart"};
+      return { name: "shopcart" };
     },
   },
   // 购物车
@@ -58,6 +58,24 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: () => import("@/views/Login/index.vue"),
+    children: [
+      {
+        path: "login",
+        name: "login1",
+        component: () => import("@/views/Login/login/index.vue"),
+      },
+      {
+        path: "register",
+        name: "register1",
+        component: () => import("@/views/Login/register/index.vue"),
+      },
+      {
+        path: "",
+        redirect() {
+          return { name: "login1" };
+        },
+      },
+    ],
   },
   // 注册页面
   {
@@ -74,8 +92,9 @@ const routes: Array<RouteRecordRaw> = [
       needLogin: true,
     },
     beforeEnter: (to, from) => {
-      console.log('from.name',to.name)
-      if (from.name === "shopcart" || from.name === "pay" ||!from.name) return true;
+      console.log("from.name", to.name);
+      if (from.name === "shopcart" || from.name === "pay" || !from.name)
+        return true;
       return false;
     },
   },
@@ -88,7 +107,8 @@ const routes: Array<RouteRecordRaw> = [
       needLogin: true,
     },
     beforeEnter: (to, from) => {
-      if (from.name === "trade" || from.name === "paysuccess" ||!from.name) return true;
+      if (from.name === "trade" || from.name === "paysuccess" || !from.name)
+        return true;
       return from;
     },
   },
@@ -103,7 +123,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: (to, from) => {
       if (from.name === "pay" && to.params.paysuccess === "支付成功")
         return true;
-      return {name:"myorder"};
+      return { name: "myorder" };
     },
   },
   // 个人中心
@@ -189,7 +209,9 @@ router.beforeEach(async (to, from) => {
         });
       }
 
-      return `/login?redirect=${to.name as string}&query=${JSON.stringify(to.query)}&params=${JSON.stringify(to.params)}`;
+      return `/login?redirect=${to.name as string}&query=${JSON.stringify(
+        to.query
+      )}&params=${JSON.stringify(to.params)}`;
     }
     return true;
   }

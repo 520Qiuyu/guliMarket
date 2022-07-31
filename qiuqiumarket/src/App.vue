@@ -1,5 +1,4 @@
 <template>
-  <MyTest></MyTest>
   <Header></Header>
   <router-view></router-view>
   <!-- 使用v-show无效且报警 -->
@@ -9,7 +8,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import MyTest from "@/components/test.vue";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { delCateGory2 } from "@/api/index.ts";
@@ -17,7 +15,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 export default defineComponent({
   name: "App",
-  components: { Header, Footer, MyTest },
+  components: { Header, Footer },
   props: {},
   setup(props, ctx) {
     const Route = useRoute();

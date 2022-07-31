@@ -1,83 +1,44 @@
 <template>
   <div class="login-container">
-    <!-- 登录 -->
-    <div class="login-wrap">
-      <div class="login">
-        <div class="loginform">
-          <ul class="tab clearFix">
-            <li>
-              <a style="border-right: 0">扫描登录</a>
-            </li>
-            <li>
-              <a class="current">账户登录</a>
-            </li>
-          </ul>
-
-          <div class="content">
-            <form>
-              <div class="input-text clearFix">
-                <span></span>
-                <input
-                  type="text"
-                  placeholder="邮箱/用户名/手机号"
-                  v-model="username"
-                />
-              </div>
-              <div class="input-text clearFix">
-                <span class="pwd"></span>
-                <input
-                  type="text"
-                  placeholder="请输入密码"
-                  v-model="password"
-                  @keyup.enter.once="loginHandle"
-                />
-              </div>
-              <div class="setting clearFix">
-                <label class="checkbox inline">
-                  <input
-                    name="m1"
-                    type="checkbox"
-                    value="2"
-                    v-model="autoLogin"
-                  />
-                  自动登录
-                </label>
-                <span class="forget">忘记密码？</span>
-              </div>
-              <button class="btn" @click.prevent="loginHandle">
-                登&nbsp;&nbsp;录
-              </button>
-            </form>
-
-            <div class="call clearFix">
-              <ul>
-                <li><img src="./images/qq.png" alt="" /></li>
-                <li><img src="./images/sina.png" alt="" /></li>
-                <li><img src="./images/ali.png" alt="" /></li>
-                <li><img src="./images/weixin.png" alt="" /></li>
-              </ul>
-              <router-link class="register" to="/register"
-                >立即注册</router-link
-              >
+    <!-- 新版登录 -->
+    <div class="new-login-box">
+      <!-- 左侧图片 -->
+      <div class="left-img"></div>
+      <!-- 右侧登录主体 -->
+      <div class="right-login-content">
+        <!-- 头部 -->
+        <div class="header">
+          <!-- 左侧logo -->
+          <div class="left-logo">
+            <img src="./images/logo.png" class="logo" />
+            <h1 class="logo-title">邱邱账号</h1>
+          </div>
+          <!-- 右侧导航栏 -->
+          <div class="right-nav">
+            <ul class="nav-list">
+              <li class="nav-list-item">用户协议</li>
+              <li class="nav-list-item">隐私政策</li>
+              <li class="nav-list-item">帮助中心</li>
+            </ul>
+            <div class="language-selector">
+              中文(简体)<el-icon><CaretBottom /></el-icon>
             </div>
           </div>
         </div>
+        <!-- main body -->
+        <div class="main-body">
+          <!-- 登录注册按钮导航 -->
+          <div class="logo-btns">
+            <router-link to="/login/login" active-class="active">登录</router-link>
+            <router-link to="/login/register" active-class="active">注册</router-link>
+          </div>
+          <router-view></router-view>
+        </div>
+        <!-- 底部 -->
+        <div class="footer">
+          邱邱公司版权所有-京ICP备10046444-京公网安备11010802020134号-京ICP证110507号
+        </div>
       </div>
-    </div>
-    <!-- 底部 -->
-    <div class="copyright">
-      <ul>
-        <li>关于我们</li>
-        <li>联系我们</li>
-        <li>联系客服</li>
-        <li>商家入驻</li>
-        <li>营销中心</li>
-        <li>手机尚品汇</li>
-        <li>销售联盟</li>
-        <li>尚品汇社区</li>
-      </ul>
-      <div class="address">地址：北京市昌平区宏福科技园综合楼6层</div>
-      <div class="beian">京ICP备19006430号</div>
     </div>
   </div>
 </template>
@@ -90,51 +51,10 @@ import { useStore } from "vuex";
 export default defineComponent({
   name: "Login",
   setup(props, ctx) {
-    const Store = useStore();
-    const Router = useRouter();
-    const Route = useRoute();
-    const username = ref("");
-    const password = ref("");
-    const autoLogin = ref(true);
-    const loginHandle = async () => {
-      if (username.value && password.value) {
-        try {
-          // 派发登录操作
-          await Store.dispatch("user/login", {
-            phone: username.value,
-            password: password.value,
-            autoLogin: autoLogin.value,
-          });
-          Router.push({
-            name: (Route.query.redirect as string) || "home",
-            query: JSON.parse(Route.query.query as string),
-            params: JSON.parse(Route.query.params as string),
-          });
-          ElMessage({
-            message: "登录成功",
-            type: "success",
-            center: true,
-          });
-        } catch (error) {
-          ElMessage({
-            message: (error as Error).message,
-            type: "error",
-            center: true,
-          });
-        }
-      } else {
-        ElMessage({
-          message: "请填写完整信息",
-          type: "error",
-          center: true,
-        });
-      }
-    };
+    
+    
     return {
-      username,
-      password,
-      autoLogin,
-      loginHandle,
+      
     };
   },
 });
@@ -142,169 +62,116 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .login-container {
-  .login-wrap {
-    height: 487px;
-    background-color: #e93854;
+  
 
-    .login {
-      width: 1200px;
-      height: 487px;
-      margin: 0 auto;
-      background: url(./images/loginbg.png) no-repeat;
+  .new-login-box {
+    display: flex;
+    height: calc(100vh);
+
+    .left-img {
+      width: 375px;
+      background-image: url(https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.5b1efcd8.jpg);
+      background-size: cover;
+      background-position: center;
     }
+    .right-login-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
 
-    .loginform {
-      width: 420px;
-      height: 406px;
-      box-sizing: border-box;
-      background: #fff;
-      float: right;
-      top: 45px;
-      position: relative;
-      padding: 20px;
+      .header {
+        width: 100%;
+        height: 80px;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
 
-      .tab {
-        li {
-          width: 50%;
-          float: left;
-          text-align: center;
+        .left-logo {
+          height: 40px;
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            object-position: 37%;
+            margin-right: 10px;
+          }
+
+          h1 {
+            font-size: 26px;
+            line-height: 40px;
+          }
+        }
+
+        .right-nav {
+          display: flex;
+          color: #838383;
+          line-height: 40px;
+
+          .nav-list {
+            display: flex;
+
+            .nav-list-item {
+              margin: 0 10px;
+            }
+          }
+
+          .language-selector {
+            display: flex;
+            align-items: center;
+
+            &::before {
+              content: "";
+              margin-right: 10px;
+              display: block;
+              width: 1px;
+              height: 14px;
+              background-color: #ddd;
+            }
+          }
+        }
+      }
+
+      .main-body {
+        width: 450px;
+        padding: 40px 45px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        box-shadow: 0 20px 50px 0 hsl(0deg 0% 64% / 10%);
+
+        .logo-btns {
+          color: rgba(0, 0, 0, 0.85);
+          font-size: 22px;
+          line-height: 40px;
+          margin-bottom: 16px;
 
           a {
-            width: 100%;
-            display: block;
-            height: 50px;
-            line-height: 50px;
-            font-size: 20px;
-            font-weight: 700;
+            margin-right: 20px;
+            font-weight: 600;
+            color: #bbb;
+            padding-bottom: 2px;
+          }
+
+          & .active {
             color: #333;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-            text-decoration: none;
-          }
-
-          .current {
-            border-bottom: none;
-            border-top-color: #28a3ef;
-            color: #e1251b;
+            border-bottom: 3px solid #ff5c00;
           }
         }
+
+       
+
+        
       }
 
-      .content {
-        width: 380px;
-        height: 316px;
-        box-sizing: border-box;
-        border: 1px solid #ddd;
-        border-top: none;
-        padding: 18px;
-
-        form {
-          margin: 15px 0 18px 0;
+      .footer{
+          color: #999;
           font-size: 12px;
-          line-height: 18px;
-
-          .input-text {
-            margin-bottom: 16px;
-
-            span {
-              float: left;
-              width: 37px;
-              height: 32px;
-              border: 1px solid #ccc;
-              background: url(../../assets/images/icons.png) no-repeat -10px -201px;
-              box-sizing: border-box;
-              border-radius: 2px 0 0 2px;
-            }
-
-            .pwd {
-              background-position: -72px -201px;
-            }
-
-            input {
-              width: 302px;
-              height: 32px;
-              box-sizing: border-box;
-              border: 1px solid #ccc;
-              border-left: none;
-              float: left;
-              padding-top: 6px;
-              padding-bottom: 6px;
-              font-size: 14px;
-              line-height: 22px;
-              padding-right: 8px;
-              padding-left: 8px;
-
-              border-radius: 0 2px 2px 0;
-              outline: none;
-            }
-          }
-
-          .setting {
-            label {
-              float: left;
-            }
-
-            .forget {
-              float: right;
-            }
-          }
-
-          .btn {
-            background-color: #e1251b;
-            padding: 6px;
-            border-radius: 0;
-            font-size: 16px;
-            font-family: 微软雅黑;
-            word-spacing: 4px;
-            border: 1px solid #e1251b;
-            color: #fff;
-            width: 100%;
-            height: 36px;
-            margin-top: 25px;
-            outline: none;
-          }
         }
-
-        .call {
-          margin-top: 30px;
-
-          ul {
-            float: left;
-
-            li {
-              float: left;
-              margin-right: 5px;
-            }
-          }
-
-          .register {
-            float: right;
-            font-size: 15px;
-            line-height: 38px;
-          }
-
-          .register:hover {
-            color: #4cb9fc;
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-  }
-
-  .copyright {
-    width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 24px;
-
-    ul {
-      li {
-        display: inline-block;
-        border-right: 1px solid #e4e4e4;
-        padding: 0 20px;
-        margin: 15px 0;
-      }
     }
   }
 }

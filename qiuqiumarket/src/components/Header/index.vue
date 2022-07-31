@@ -33,9 +33,9 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="点击去主页">
+        <router-link class="logo" title="点击去主页" to="/home">
           <img src="./images/logo.png" />
-        </a>
+        </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm" @submit.native.prevent>
@@ -96,7 +96,7 @@ export default defineComponent({
       try {
         await Store.dispatch("user/logout");
         Router.push({
-          name: "login",
+          name: "login1",
         });
       } catch (error) {
         ElMessage({
@@ -108,11 +108,15 @@ export default defineComponent({
     };
     // 关注我回调 滚动到最底部
     const followMe = () => {
-      scrollTo({
-        top:10000,
-        behavior:"smooth"
-      })
-    }
+      Router.push({
+        name: "home",
+      }).then(() => {
+        scrollTo({
+          top: 10000,
+          behavior: "smooth",
+        });
+      });
+    };
     return {
       keyword,
       goSearch,
@@ -170,7 +174,6 @@ export default defineComponent({
       }
 
       .typeList {
-
         a {
           padding: 0 10px;
 
@@ -178,8 +181,8 @@ export default defineComponent({
             border-left: 1px solid #424242;
           }
         }
-        a:hover{
-          color:#fff;
+        a:hover {
+          color: #fff;
         }
       }
     }
@@ -226,9 +229,9 @@ export default defineComponent({
         button {
           height: 32px;
           width: 68px;
-          background-color: #FF6700;
+          background-color: #ff6700;
           border: none;
-          color: #FFF;
+          color: #fff;
           border-left: none;
           float: left;
           cursor: pointer;
